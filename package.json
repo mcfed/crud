@@ -1,0 +1,17 @@
+{
+  "name": "@mcf/curd",
+  "version": "1.0.0",
+  "description": "@mcf for curd",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "@mcf",
+    "CRUD",
+    "modules",
+    "developer"
+  ],
+  "author": "jaxchow",
+  "license": "ISC"
+}
