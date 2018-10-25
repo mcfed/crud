@@ -2,7 +2,8 @@
   "name": "@mcf/curd",
   "version": "1.0.0",
   "description": "@mcf for curd",
-  "main": "index.js",
+  "modules":"modules/index.js",
+  "main": "modules/index.js",
   "scripts": {
     "test": "jest"
   },
