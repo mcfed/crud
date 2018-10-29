@@ -2,7 +2,7 @@
   "name": "mcf-crud",
   "version": "1.0.0",
   "description": "@mcf for crud",
-  "module": "modules/index.js",
+  "module": "esm/mcf-crud.js",
   "scripts": {
     "test": "jest"
   },

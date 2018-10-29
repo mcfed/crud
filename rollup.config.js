@@ -30,7 +30,7 @@ export default [{
   input,
   output: { file: `esm/${pkg.name}.js`, format: "esm" },
   external,
-  plugins: [babel(babelOptionsESM)]
+  plugins: [babel(babelOptionsESM),nodeResolve()]
 },{
    input,
    output: { file: `umd/${pkg.name}.js`, format: "umd", name, globals },
