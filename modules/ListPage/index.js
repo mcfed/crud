@@ -86,10 +86,12 @@ export default class ListPage extends Component {
   onSelectChange(selectedRowKeys, selectedRows) {
     this.setState({selectedRowKeys, selectedRows});
   }
+  /*
   selectRowShow(reactNode){
     const {selectedRowKeys}=this.state
     return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" style={{textAlign:'left'}}><span>已选<span className="countNum">{selectedRowKeys.length}</span>条数据</span>{reactNode}</div>) :null
   }
+  */
   /**
    * [selectMultiple 判断当前是否多选]
    * @return {[boolean]} [返回是否多选状态]

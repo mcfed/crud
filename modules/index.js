@@ -1,4 +1,5 @@
-import ListPage,{FormPage} from './Page'
-import ModalAndView from './ModalAndView'
-export {FormPage,ModalAndView}
+import { default as ListPage } from './ListPage'
+import { default as FormPage } from './FormPage'
+
+export {ListPage,FormPage}
 export default ListPage
