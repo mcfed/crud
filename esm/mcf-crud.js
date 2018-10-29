@@ -300,6 +300,7 @@ function (_Component) {
   };
 
   _proto.saveFormRef = function saveFormRef(form) {
+    console.log(form);
     this.form = form;
   };
 

@@ -1066,6 +1066,7 @@
     };
 
     _proto.saveFormRef = function saveFormRef(form) {
+      console.log(form);
       this.form = form;
     };
 

@@ -1,7 +1,7 @@
 {
   "umd/mcf-crud.js": {
-    "bundled": 36500,
-    "minified": 10547,
-    "gzipped": 3719
+    "bundled": 36525,
+    "minified": 10562,
+    "gzipped": 3728
   }
 }

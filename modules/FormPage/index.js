@@ -16,6 +16,7 @@ export default class FormPage extends Component{
     // console.log(error, errorInfo);
   }
   saveFormRef (form){
+    console.log(form)
     this.form = form;
   }
   onSubmit(){
