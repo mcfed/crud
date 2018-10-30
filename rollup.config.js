@@ -30,14 +30,14 @@ export default [{
   input,
   output: { file: `esm/${pkg.name}.js`, format: "esm" },
   external,
-  plugins: [babel(babelOptionsESM),nodeResolve()]
+  plugins: [nodeResolve(),babel(babelOptionsESM)]
 },{
    input,
    output: { file: `umd/${pkg.name}.js`, format: "umd", name, globals },
    external: Object.keys(globals),
    plugins: [
-     babel(babelOptionsESM),
      nodeResolve(),
+     babel(babelOptionsESM),
      commonjs(commonjsOptions),
      replace({ "process.env.NODE_ENV": JSON.stringify("development") }),
      sizeSnapshot()
