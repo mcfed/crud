@@ -38,6 +38,21 @@ export default class ListPage extends Component {
       selectedRowKeys: []
     };
   }
+  goBack(){
+    const {history} = this.props
+    history.goBack()
+  }
+  goAdd(){
+    this.goRoutes(`add`)
+  }
+  goEdit(route){
+    this.goRoutes(`edit/${route}`)
+  }
+  goRoutes(route){
+    const {history,match} = this.props
+    history.push(`${match.path}/${route}`)
+  }
+
   configColumns(){
     console.log("configColumns")
   }

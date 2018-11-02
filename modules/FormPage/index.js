@@ -6,6 +6,20 @@ export default class FormPage extends Component{
     super(props);
     this.state = { error: null, errorInfo: null };
   }
+  goBack(){
+    const {history} = this.props
+    history.goBack()
+  }
+  goAdd(){
+    this.goRoutes(`add`)
+  }
+  goEdit(route){
+    this.goRoutes(`edit/${route}`)
+  }
+  goRoutes(route){
+    const {history,match} = this.props
+    history.push(`${match.path}/${route}`)
+  }
   componentDidCatch(error, errorInfo) {
     // Display fallback UI
     this.setState({
@@ -19,15 +33,19 @@ export default class FormPage extends Component{
     console.log(form)
     this.form = form;
   }
-  onSubmit(){
-    this.form.validateFieldsAndScroll({force:true,first:true},(err,values) => {
-       if (err) {
-         return;
-       }
-        this.handleSubmit(values)
-       //actions.saveAction(values)
-       //form.resetFields();
-     });
+  onSubmit(actionType){
+    // console.log(arguments)
+    if(actionType ==='handleSubmit'){
+      this.form.validateFieldsAndScroll({force:true,first:true},(err,values) => {
+         if (err) {
+           return;
+         }
+          this.handleSubmit(values)
+       });
+    }else{
+      this[actionType].apply(this,[this.form.getFieldsValue()])
+    }
+
   }
   handleSubmit(values){
     let {actions} = this.props;

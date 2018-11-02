@@ -1,6 +1,11 @@
-import _inheritsLoose from '@babel/runtime/helpers/esm/inheritsLoose';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
 
 /**
  * 列表页的父类组件
@@ -44,6 +49,26 @@ function (_Component) {
     };
     return _this;
   }
+
+  _proto.goBack = function goBack() {
+    var history = this.props.history;
+    history.goBack();
+  };
+
+  _proto.goAdd = function goAdd() {
+    this.goRoutes("add");
+  };
+
+  _proto.goEdit = function goEdit(route) {
+    this.goRoutes("edit/" + route);
+  };
+
+  _proto.goRoutes = function goRoutes(route) {
+    var _this$props = this.props,
+        history = _this$props.history,
+        match = _this$props.match;
+    history.push(match.path + "/" + route);
+  };
 
   _proto.configColumns = function configColumns() {
     console.log("configColumns");
@@ -158,10 +183,10 @@ function (_Component) {
 
 
   _proto.handleAddRoute = function handleAddRoute() {
-    var _this$props = this.props,
-        actions = _this$props.actions,
-        history = _this$props.history,
-        router = _this$props.router; //  console.log(router.getCurrentLocation())
+    var _this$props2 = this.props,
+        actions = _this$props2.actions,
+        history = _this$props2.history,
+        router = _this$props2.router; //  console.log(router.getCurrentLocation())
 
     actions.addRoute(router);
   };
@@ -173,10 +198,10 @@ function (_Component) {
 
 
   _proto.handleEditRoute = function handleEditRoute(id) {
-    var _this$props2 = this.props,
-        actions = _this$props2.actions,
-        history = _this$props2.history,
-        router = _this$props2.router;
+    var _this$props3 = this.props,
+        actions = _this$props3.actions,
+        history = _this$props3.history,
+        router = _this$props3.router;
     var key = id || this.getSelectKeys();
     actions.editRoute(router, key);
   };
@@ -187,9 +212,9 @@ function (_Component) {
 
 
   _proto.handleBackRoute = function handleBackRoute() {
-    var _this$props3 = this.props,
-        actions = _this$props3.actions,
-        history = _this$props3.history;
+    var _this$props4 = this.props,
+        actions = _this$props4.actions,
+        history = _this$props4.history;
     actions.backRoute();
   };
   /**
@@ -200,9 +225,9 @@ function (_Component) {
 
 
   _proto.handleDeleteRoute = function handleDeleteRoute(id) {
-    var _this$props4 = this.props,
-        actions = _this$props4.actions,
-        history = _this$props4.history;
+    var _this$props5 = this.props,
+        actions = _this$props5.actions,
+        history = _this$props5.history;
     var key = id || this.getSelectKeys();
     actions.deleteRoute(key);
   };
@@ -290,6 +315,26 @@ function (_Component) {
 
   var _proto = FormPage.prototype;
 
+  _proto.goBack = function goBack() {
+    var history = this.props.history;
+    history.goBack();
+  };
+
+  _proto.goAdd = function goAdd() {
+    this.goRoutes("add");
+  };
+
+  _proto.goEdit = function goEdit(route) {
+    this.goRoutes("edit/" + route);
+  };
+
+  _proto.goRoutes = function goRoutes(route) {
+    var _this$props = this.props,
+        history = _this$props.history,
+        match = _this$props.match;
+    history.push(match.path + "/" + route);
+  };
+
   _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
     // Display fallback UI
     this.setState({
@@ -304,21 +349,24 @@ function (_Component) {
     this.form = form;
   };
 
-  _proto.onSubmit = function onSubmit() {
+  _proto.onSubmit = function onSubmit(actionType) {
     var _this2 = this;
 
-    this.form.validateFieldsAndScroll({
-      force: true,
-      first: true
-    }, function (err, values) {
-      if (err) {
-        return;
-      }
+    // console.log(arguments)
+    if (actionType === 'handleSubmit') {
+      this.form.validateFieldsAndScroll({
+        force: true,
+        first: true
+      }, function (err, values) {
+        if (err) {
+          return;
+        }
 
-      _this2.handleSubmit(values); //actions.saveAction(values)
-      //form.resetFields();
-
-    });
+        _this2.handleSubmit(values);
+      });
+    } else {
+      this[actionType].apply(this, [this.form.getFieldsValue()]);
+    }
   };
 
   _proto.handleSubmit = function handleSubmit(values) {
@@ -333,5 +381,115 @@ function (_Component) {
   return FormPage;
 }(Component);
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+var index = (function (ModalAndView) {
+  return function (InnerComponent) {
+    return (
+      /*#__PURE__*/
+      function (_Component) {
+        _inheritsLoose(_class, _Component);
+
+        function _class() {
+          return _Component.apply(this, arguments) || this;
+        }
+
+        var _proto = _class.prototype;
+
+        _proto.handleBackRoute = function handleBackRoute() {
+          var _this$props = this.props,
+              actions = _this$props.actions,
+              history = _this$props.history,
+              router = _this$props.router;
+          console.log("onCancel", this.props); //  actions.backRoute(router)
+        };
+
+        _proto.handleSaveRoute = function handleSaveRoute() {
+          console.log("onSure", this.props); // let { formView } =this.refs
+          //console.log(formView)
+          // formView.onSubmit()
+        };
+
+        _proto.render = function render() {
+          var _this$props2 = this.props,
+              children = _this$props2.children,
+              otherProps = _objectWithoutPropertiesLoose(_this$props2, ["children"]);
+
+          return React.createElement(ModalAndView, _extends({
+            title: "titl",
+            visible: true,
+            maskClosable: false,
+            onCancel: this.handleBackRoute.bind(this),
+            onOk: this.handleSaveRoute.bind(this)
+          }, otherProps), React.createElement(InnerComponent, _extends({}, otherProps)));
+        };
+
+        return _class;
+      }(Component)
+    );
+  };
+});
+/*
+class ModalAndView extends Component {
+
+  handleBackRoute() {
+    let {actions, history,router} = this.props
+  //  actions.backRoute(router)
+  }
+  handleSaveRoute(){
+    // let { formView } =this.refs
+    //console.log(formView)
+    // formView.onSubmit()
+  }
+
+  render() {
+    var {route, children,...otherProps} = this.props
+//	console.log(this.props)
+    return (
+      <Modal title={"titl"} visible={true} maskClosable={false} onCancel={this.handleBackRoute.bind(this)} onOk={this.handleSaveRoute.bind(this)} {...otherProps}>
+        {
+          React.cloneElement(children,Object.assign({},otherProps,{
+             // ref:"formView"
+          }))
+        }
+      </Modal>
+    )
+  }
+}
+*/
+//export default withRouter(ModalAndView)
+// export default ModalAndView
+
 export default ListPage;
-export { ListPage, FormPage };
+export { ListPage, FormPage, index as ModalAndView };
