@@ -1,8 +1,19 @@
 stages:
-- build
+    - test
+    - build
 
+test_job:
+    stage: test
+    script:
+    - npm install --save-dev
+    - npm run test
+    tags:
+    - master
 
 build_job:
     stage: build
     script:
-    - echo "build"
+    - npm install --save-dev
+    - npm run build
+    tags:
+    - master
