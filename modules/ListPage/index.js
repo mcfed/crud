@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import Page from '../Page'
 
 
 /**
@@ -7,30 +8,18 @@ import PropTypes from 'prop-types'
  * @type {component}
  */
 
-export default class ListPage extends Component {
+export default class ListPage extends Page {
 
-  static childContextTypes = {
-        appConfig : PropTypes.object
-  }
-  componentDidCatch(error, errorInfo) {
-    // Display fallback UI
-    // this.setState({
-    //   error: error,
-    //   errorInfo: errorInfo
-    // });
-    // You can also log the error to an error reporting service
-    // console.log(error, errorInfo);
-    // console.log("1111",error)
-    // console.log(this.props)
-    // this.props.router.goBack()
-    // throw new Error("error!!!")
-  }
-  getChildContext(){
-   var { appConfig } =this.props;
-   return {
-       appConfig: appConfig
-   };
- }
+ //  static childContextTypes = {
+ //        appConfig : PropTypes.object
+ //  }
+ //
+ //  getChildContext(){
+ //   var { appConfig } =this.props;
+ //   return {
+ //       appConfig: appConfig
+ //   };
+ // }
   constructor(props) {
     super(props);
     this.state = {
@@ -38,32 +27,7 @@ export default class ListPage extends Component {
       selectedRowKeys: []
     };
   }
-  goBack(){
-    const {history} = this.props
-    history.goBack()
-  }
-  goAdd(){
-    this.goRoutes(`add`)
-  }
-  goEdit(route){
-    this.goRoutes(`edit/${route}`)
-  }
-  goRoutes(route){
-    const {history,match} = this.props
-    history.push(`${match.path}/${route}`)
-  }
 
-  configColumns(){
-    console.log("configColumns")
-  }
-  getCurrentLocation(){
-    let {router} = this.props;
-    console.log(router.getCurrentLocation())
-  }
-
-  showTotal(total) {
-    return `共计 ${total} 条数据`;
-  }
   //缺失深度合并，只做一级合并
   mergeTableConfig(config){
     return Object.assign({
@@ -151,9 +115,7 @@ export default class ListPage extends Component {
    */
 
   handleAddRoute() {
-    let {actions, history,router} = this.props
-  //  console.log(router.getCurrentLocation())
-    actions.addRoute(router)
+    this.goAdd()
   }
 
   /**
@@ -163,9 +125,8 @@ export default class ListPage extends Component {
    */
 
   handleEditRoute(id) {
-    let {actions, history,router} = this.props
     let key = id || this.getSelectKeys()
-    actions.editRoute(router,key)
+    this.goEdit(key)
   }
 
   /**
@@ -174,8 +135,7 @@ export default class ListPage extends Component {
    */
 
   handleBackRoute() {
-    let {actions, history} = this.props
-    actions.backRoute()
+    this.goBack()
   }
   /**
    * [handleDeleteRoute 删除路由监听]
@@ -219,29 +179,13 @@ export default class ListPage extends Component {
   renderSearchBar() {
     return (null)
   }
-
-
-  /**
-   * 渲染对话框组件
-   * @return {[type]} [description]
-   */
-
-   /*
-  renderDialogView() {
-    var {route} = this.props
-    var title = ""
-    if (route.path == 'add') {
-      title = "添加"
-    } else if (route.path == 'edit/:id') {
-      title = "编辑"
-    } else {
-      return (null)
-    }
-    return (
-      <Modal title={title} visible={true} maskClosable={false} onCancel={this.handleBackRoute.bind(this)} onOK={this.handleBackRoute.bind(this)}>
-        {this.renderFormView()}
-      </Modal>
-    )
+  render(){
+    return (null)
   }
-  */
+}
+
+ListPage.propTypes={
+  items:PropTypes.array.isRequired,
+  actions:PropTypes.object.isRequired,
+  actionsType:PropTypes.object
 }

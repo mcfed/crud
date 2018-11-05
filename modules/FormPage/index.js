@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 //import PropTypes from 'prop-types'
+import Page from '../Page'
 
 export default class FormPage extends Component{
   constructor(props) {
