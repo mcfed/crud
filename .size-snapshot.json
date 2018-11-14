@@ -1,20 +1,20 @@
 {
   "umd/mcf-crud.js": {
-    "bundled": 13536,
-    "minified": 4259,
-    "gzipped": 1589
+    "bundled": 12364,
+    "minified": 4066,
+    "gzipped": 1445
   },
   "esm/mcf-crud.js": {
-    "bundled": 12099,
-    "minified": 4133,
-    "gzipped": 1496,
+    "bundled": 10983,
+    "minified": 3979,
+    "gzipped": 1363,
     "treeshaked": {
       "rollup": {
-        "code": 2155,
+        "code": 1962,
         "import_statements": 60
       },
       "webpack": {
-        "code": 3192
+        "code": 3003
       }
     }
   }

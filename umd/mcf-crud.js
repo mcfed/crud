@@ -13,48 +13,16 @@
     subClass.__proto__ = superClass;
   }
 
-  /**
-   * 列表页的父类组件
-   * @type {component}
-   */
-
-  var ListPage =
+  var Page =
   /*#__PURE__*/
   function (_Component) {
-    _inheritsLoose(ListPage, _Component);
+    _inheritsLoose(Page, _Component);
 
-    var _proto = ListPage.prototype;
-
-    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {// Display fallback UI
-      // this.setState({
-      //   error: error,
-      //   errorInfo: errorInfo
-      // });
-      // You can also log the error to an error reporting service
-      // console.log(error, errorInfo);
-      // console.log("1111",error)
-      // console.log(this.props)
-      // this.props.router.goBack()
-      // throw new Error("error!!!")
-    };
-
-    _proto.getChildContext = function getChildContext() {
-      var appConfig = this.props.appConfig;
-      return {
-        appConfig: appConfig
-      };
-    };
-
-    function ListPage(props) {
-      var _this;
-
-      _this = _Component.call(this, props) || this;
-      _this.state = {
-        selectedRows: [],
-        selectedRowKeys: []
-      };
-      return _this;
+    function Page() {
+      return _Component.apply(this, arguments) || this;
     }
+
+    var _proto = Page.prototype;
 
     _proto.goBack = function goBack() {
       var history = this.props.history;
@@ -76,19 +44,51 @@
       history.push(match.path + "/" + route);
     };
 
-    _proto.configColumns = function configColumns() {
-      console.log("configColumns");
+    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
+      // Display fallback UI
+      this.setState({
+        error: error,
+        errorInfo: errorInfo
+      }); // You can also log the error to an error reporting service
+      // console.log(error, errorInfo);
     };
 
-    _proto.getCurrentLocation = function getCurrentLocation() {
-      var router = this.props.router;
-      console.log(router.getCurrentLocation());
-    };
+    return Page;
+  }(React.Component);
 
-    _proto.showTotal = function showTotal(total) {
-      return "\u5171\u8BA1 " + total + " \u6761\u6570\u636E";
-    }; //缺失深度合并，只做一级合并
+  /**
+   * 列表页的父类组件
+   * @type {component}
+   */
 
+  var ListPage =
+  /*#__PURE__*/
+  function (_Page) {
+    _inheritsLoose(ListPage, _Page);
+
+    //  static childContextTypes = {
+    //        appConfig : PropTypes.object
+    //  }
+    //
+    //  getChildContext(){
+    //   var { appConfig } =this.props;
+    //   return {
+    //       appConfig: appConfig
+    //   };
+    // }
+    function ListPage(props) {
+      var _this;
+
+      _this = _Page.call(this, props) || this;
+      _this.state = {
+        selectedRows: [],
+        selectedRowKeys: []
+      };
+      return _this;
+    } //缺失深度合并，只做一级合并
+
+
+    var _proto = ListPage.prototype;
 
     _proto.mergeTableConfig = function mergeTableConfig(config) {
       return Object.assign({
@@ -189,12 +189,7 @@
 
 
     _proto.handleAddRoute = function handleAddRoute() {
-      var _this$props2 = this.props,
-          actions = _this$props2.actions,
-          history = _this$props2.history,
-          router = _this$props2.router; //  console.log(router.getCurrentLocation())
-
-      actions.addRoute(router);
+      this.goAdd();
     };
     /**
      * 编辑路由监听
@@ -204,12 +199,8 @@
 
 
     _proto.handleEditRoute = function handleEditRoute(id) {
-      var _this$props3 = this.props,
-          actions = _this$props3.actions,
-          history = _this$props3.history,
-          router = _this$props3.router;
       var key = id || this.getSelectKeys();
-      actions.editRoute(router, key);
+      this.goEdit(key);
     };
     /**
      * 取消或回退路由监听
@@ -218,10 +209,7 @@
 
 
     _proto.handleBackRoute = function handleBackRoute() {
-      var _this$props4 = this.props,
-          actions = _this$props4.actions,
-          history = _this$props4.history;
-      actions.backRoute();
+      this.goBack();
     };
     /**
      * [handleDeleteRoute 删除路由监听]
@@ -231,9 +219,9 @@
 
 
     _proto.handleDeleteRoute = function handleDeleteRoute(id) {
-      var _this$props5 = this.props,
-          actions = _this$props5.actions,
-          history = _this$props5.history;
+      var _this$props = this.props,
+          actions = _this$props.actions,
+          history = _this$props.history;
       var key = id || this.getSelectKeys();
       actions.deleteRoute(key);
     };
@@ -271,36 +259,17 @@
     _proto.renderSearchBar = function renderSearchBar() {
       return null;
     };
-    /**
-     * 渲染对话框组件
-     * @return {[type]} [description]
-     */
 
-    /*
-    renderDialogView() {
-     var {route} = this.props
-     var title = ""
-     if (route.path == 'add') {
-       title = "添加"
-     } else if (route.path == 'edit/:id') {
-       title = "编辑"
-     } else {
-       return (null)
-     }
-     return (
-       <Modal title={title} visible={true} maskClosable={false} onCancel={this.handleBackRoute.bind(this)} onOK={this.handleBackRoute.bind(this)}>
-         {this.renderFormView()}
-       </Modal>
-     )
-    }
-    */
-
+    _proto.render = function render() {
+      return null;
+    };
 
     return ListPage;
-  }(React.Component);
-
-  ListPage.childContextTypes = {
-    appConfig: PropTypes.object
+  }(Page);
+  ListPage.propTypes = {
+    items: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
+    actionsType: PropTypes.object
   };
 
   var FormPage =
