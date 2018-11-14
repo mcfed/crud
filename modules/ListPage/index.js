@@ -36,15 +36,17 @@ export default class ListPage extends Page {
          showQuickJumper:true,
          showSizeChanger:true,
          pageSizeOptions:['10','20','50','100'],
-         showTotal:this.showTotal.bind(this),
+        // showTotal:this.showTotal(this),
       },
-      // rowSelection:{
-      //   onChange: this.onSelectChange.bind(this)
-      // },
       style:{
         width:'100%'
       },
-    },config)
+    },config,{
+      rowSelection:{
+        onChange: this.onSelectChange.bind(this),
+        selectedRowKeys:this.state.selectedRowKeys,
+      }
+    })
   }
   /**
    * 组件开始请求获取数据
@@ -110,6 +112,15 @@ export default class ListPage extends Page {
   }
 
   /**
+   * [clearSelectRows 清空已选列清数据记录]
+   * @return null
+   **/
+
+  clearSelectRows(){
+      this.setState({selectedRowKeys:[], selectedRows:[]});
+  }
+
+  /**
    * 新增路由监听
    * @return {无}
    */
@@ -155,8 +166,9 @@ export default class ListPage extends Page {
  */
 
   handleFilter(value) {
-    let {actions} = this.props;
-    actions.listAction(value);
+    let {actions} = this.props
+    this.clearSelectRows()
+    actions.listAction(value)
   }
 
     /**
@@ -187,5 +199,5 @@ export default class ListPage extends Page {
 ListPage.propTypes={
   items:PropTypes.array.isRequired,
   actions:PropTypes.object.isRequired,
-  actionsType:PropTypes.object
+  types:PropTypes.object
 }

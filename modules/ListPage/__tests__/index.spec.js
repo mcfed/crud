@@ -12,7 +12,7 @@ describe('ListPage shallow render', () => {
       // Jest 提供的mock 函数
       items:[],
       actions:{},
-      actionsType:{}
+      type:{}
     }
 
     // 通过 enzyme 提供的 shallow(浅渲染) 创建组件

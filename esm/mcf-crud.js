@@ -90,16 +90,18 @@ function (_Page) {
       pagination: {
         showQuickJumper: true,
         showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '50', '100'],
-        showTotal: this.showTotal.bind(this)
+        pageSizeOptions: ['10', '20', '50', '100'] // showTotal:this.showTotal(this),
+
       },
-      // rowSelection:{
-      //   onChange: this.onSelectChange.bind(this)
-      // },
       style: {
         width: '100%'
       }
-    }, config);
+    }, config, {
+      rowSelection: {
+        onChange: this.onSelectChange.bind(this),
+        selectedRowKeys: this.state.selectedRowKeys
+      }
+    });
   };
   /**
    * 组件开始请求获取数据
@@ -177,6 +179,18 @@ function (_Page) {
     return this.state.selectedRows;
   };
   /**
+   * [clearSelectRows 清空已选列清数据记录]
+   * @return null
+   **/
+
+
+  _proto.clearSelectRows = function clearSelectRows() {
+    this.setState({
+      selectedRowKeys: [],
+      selectedRows: []
+    });
+  };
+  /**
    * 新增路由监听
    * @return {无}
    */
@@ -228,6 +242,7 @@ function (_Page) {
 
   _proto.handleFilter = function handleFilter(value) {
     var actions = this.props.actions;
+    this.clearSelectRows();
     actions.listAction(value);
   };
   /**
@@ -263,7 +278,7 @@ function (_Page) {
 ListPage.propTypes = {
   items: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
-  actionsType: PropTypes.object
+  types: PropTypes.object
 };
 
 var FormPage =
