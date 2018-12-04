@@ -255,7 +255,7 @@ function (_Page) {
 
 
   _proto.onChange = function onChange(pagination, filters, sorter) {
-    var params = this.props.reduce.params;
+    var params = this.props.reducer.params;
     var object = Object.assign({}, params, pagination, sorter);
     this.handleFilter(object);
   };

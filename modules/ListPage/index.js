@@ -179,7 +179,7 @@ export default class ListPage extends Page {
      * @return {[type]}            [description]
      */
   onChange(pagination, filters, sorter){
-    let {reduce:{params}}=this.props
+    let {reducer:{params}}=this.props
     var object=Object.assign({},params,pagination,sorter)
     this.handleFilter(object);
   }

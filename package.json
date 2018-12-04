@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "@mcf for crud",
   "module": "esm/mcf-crud.js",
+  "main":"umd/mcf-crud.js",
   "scripts": {
     "test": "jest",
     "dev": "rollup -c --watch",
