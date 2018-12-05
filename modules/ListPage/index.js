@@ -179,9 +179,19 @@ export default class ListPage extends Page {
      * @return {[type]}            [description]
      */
   onChange(pagination, filters, sorter){
-    let {reducer:{params}}=this.props
-    var object=Object.assign({},params,pagination,sorter)
+    let {reducer}=this.props
+    // this.querys()
+    var object=Object.assign({},this.searchParams(),pagination,sorter)
     this.handleFilter(object);
+  }
+  /**
+    *  获取查询条件参数
+    *
+    */
+  searchParams(){
+    const  {querys} = this.props
+    console.info("override searchPrams method!")
+    return {}
   }
   /**
    * 渲染搜索组件

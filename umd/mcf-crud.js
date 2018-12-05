@@ -261,9 +261,21 @@
 
 
     _proto.onChange = function onChange(pagination, filters, sorter) {
-      var params = this.props.reducer.params;
-      var object = Object.assign({}, params, pagination, sorter);
+      var reducer = this.props.reducer; // this.querys()
+
+      var object = Object.assign({}, this.searchParams(), pagination, sorter);
       this.handleFilter(object);
+    };
+    /**
+      *  获取查询条件参数
+      *
+      */
+
+
+    _proto.searchParams = function searchParams() {
+      var querys = this.props.querys;
+      console.info("override searchPrams method!");
+      return {};
     };
     /**
      * 渲染搜索组件
@@ -289,13 +301,13 @@
 
   var FormPage =
   /*#__PURE__*/
-  function (_Component) {
-    _inheritsLoose(FormPage, _Component);
+  function (_Page) {
+    _inheritsLoose(FormPage, _Page);
 
     function FormPage(props) {
       var _this;
 
-      _this = _Component.call(this, props) || this;
+      _this = _Page.call(this, props) || this;
       _this.state = {
         error: null,
         errorInfo: null
@@ -305,37 +317,7 @@
 
     var _proto = FormPage.prototype;
 
-    _proto.goBack = function goBack() {
-      var history = this.props.history;
-      history.goBack();
-    };
-
-    _proto.goAdd = function goAdd() {
-      this.goRoutes("add");
-    };
-
-    _proto.goEdit = function goEdit(route) {
-      this.goRoutes("edit/" + route);
-    };
-
-    _proto.goRoutes = function goRoutes(route) {
-      var _this$props = this.props,
-          history = _this$props.history,
-          match = _this$props.match;
-      history.push(match.path + "/" + route);
-    };
-
-    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
-      // Display fallback UI
-      this.setState({
-        error: error,
-        errorInfo: errorInfo
-      }); // You can also log the error to an error reporting service
-      // console.log(error, errorInfo);
-    };
-
     _proto.saveFormRef = function saveFormRef(form) {
-      console.log(form);
       this.form = form;
     };
 
@@ -369,7 +351,7 @@
     };
 
     return FormPage;
-  }(React.Component);
+  }(Page);
 
   function _extends() {
     _extends = Object.assign || function (target) {
