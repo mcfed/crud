@@ -209,5 +209,7 @@ export default class ListPage extends Page {
 ListPage.propTypes={
   items:PropTypes.array.isRequired,
   actions:PropTypes.object.isRequired,
-  types:PropTypes.object
+  types:PropTypes.object.isRequired,
+  spins:PropTypes.function.isRequired,
+  querys:PropTypes.function.isRequired
 }
