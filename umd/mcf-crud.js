@@ -296,7 +296,9 @@
   ListPage.propTypes = {
     items: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
-    types: PropTypes.object
+    types: PropTypes.object,
+    spins: PropTypes.func,
+    querys: PropTypes.func
   };
 
   var FormPage =
