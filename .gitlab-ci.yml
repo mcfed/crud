@@ -34,6 +34,7 @@ test_ci_push:
   allow_failure: false
   script:
     - npm run build
+    - echo "This is a test" > test.dat
     - git config --global user.name "rebot"
     - git config --global user.email "rebot@mchz.com.cn"
     - git add --all
