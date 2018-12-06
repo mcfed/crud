@@ -33,9 +33,7 @@ test_ci_push:
     - master
   allow_failure: false
   script:
-    - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}gitlab/mcf/crud.git &> /dev/null
-    - touch test.data
-    - echo "This is a test" > test.dat
+    - npm run build
     - git config --global user.name "rebot"
     - git config --global user.email "rebot@mchz.com.cn"
     - git add --all
