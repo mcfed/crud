@@ -1,6 +1,7 @@
 stages:
     - test
     - compile
+    - release
 
 cache:
   key: ${CI_BUILD_REF_NAME}
@@ -27,9 +28,9 @@ build_job:
       - master
 
 test_ci_push:
+  stage: release
   tags:
     - master
-  stage: profiling
   allow_failure: false
   script:
     - git clone http://gitlab-ci-token:${CI_JOB_TOKEN}@jaxlab.asuscomm.com:30000/mcf/crud.git &> /dev/null
