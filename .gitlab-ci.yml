@@ -38,4 +38,4 @@ test_ci_push:
     - git config --global user.email "rebot@mchz.com.cn"
     - git add --all
     - git commit -m "GitLab Runner Push"
-    - git push http://rebot:XpyMqPEHPw7ojAtimwEE@gitlab/mcf/crud.git
+    - git push http://rebot:XpyMqPEHPw7ojAtimwEE@gitlab/mcf/crud.git HEAD:master
