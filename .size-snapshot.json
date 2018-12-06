@@ -1,11 +1,11 @@
 {
   "umd/mcf-crud.js": {
-    "bundled": 12023,
+    "bundled": 11991,
     "minified": 4060,
     "gzipped": 1527
   },
   "esm/mcf-crud.js": {
-    "bundled": 10652,
+    "bundled": 10622,
     "minified": 3990,
     "gzipped": 1434,
     "treeshaked": {

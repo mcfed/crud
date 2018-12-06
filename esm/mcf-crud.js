@@ -320,7 +320,6 @@ function (_Page) {
   _proto.onSubmit = function onSubmit(actionType) {
     var _this2 = this;
 
-    // console.log(arguments)
     if (actionType === 'handleSubmit') {
       this.form.validateFieldsAndScroll({
         force: true,
