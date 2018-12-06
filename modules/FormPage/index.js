@@ -11,7 +11,6 @@ export default class FormPage extends Page{
     this.form = form;
   }
   onSubmit(actionType){
-    // console.log(arguments)
     if(actionType ==='handleSubmit'){
       this.form.validateFieldsAndScroll({force:true,first:true},(err,values) => {
          if (err) {
