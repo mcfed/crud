@@ -49,8 +49,7 @@
       this.setState({
         error: error,
         errorInfo: errorInfo
-      }); // You can also log the error to an error reporting service
-      // console.log(error, errorInfo);
+      });
     };
 
     return Page;
