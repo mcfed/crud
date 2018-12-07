@@ -27,11 +27,12 @@ build_job:
     tags:
       - master
 
+
 test_ci_push:
   stage: release
   tags:
     - master
-  allow_failure: false
+  allow_failure: true
   script:
     - npm run build
     - git config --global user.name "rebot"
