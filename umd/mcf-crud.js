@@ -7,46 +7,64 @@
   var react__default = 'default' in react ? react['default'] : react;
   PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
 
-  class Page extends react.Component {
-    goBack() {
-      const {
-        history
-      } = this.props;
+  function _inheritsLoose(subClass, superClass) {
+    subClass.prototype = Object.create(superClass.prototype);
+    subClass.prototype.constructor = subClass;
+    subClass.__proto__ = superClass;
+  }
+
+  var Page =
+  /*#__PURE__*/
+  function (_Component) {
+    _inheritsLoose(Page, _Component);
+
+    function Page() {
+      return _Component.apply(this, arguments) || this;
+    }
+
+    var _proto = Page.prototype;
+
+    _proto.goBack = function goBack() {
+      var history = this.props.history;
       history.goBack();
-    }
+    };
 
-    goAdd() {
-      this.goRoutes(`add`);
-    }
+    _proto.goAdd = function goAdd() {
+      this.goRoutes("add");
+    };
 
-    goEdit(route) {
-      this.goRoutes(`edit/${route}`);
-    }
+    _proto.goEdit = function goEdit(route) {
+      this.goRoutes("edit/" + route);
+    };
 
-    goRoutes(route) {
-      const {
-        history,
-        match
-      } = this.props;
-      history.push(`${match.path}/${route}`);
-    }
+    _proto.goRoutes = function goRoutes(route) {
+      var _this$props = this.props,
+          history = _this$props.history,
+          match = _this$props.match;
+      history.push(match.path + "/" + route);
+    };
 
-    componentDidCatch(error, errorInfo) {
+    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
       // Display fallback UI
       this.setState({
         error: error,
         errorInfo: errorInfo
       });
-    }
+    };
 
-  }
+    return Page;
+  }(react.Component);
 
   /**
    * 列表页的父类组件
    * @type {component}
    */
 
-  class ListPage extends Page {
+  var ListPage =
+  /*#__PURE__*/
+  function (_Page) {
+    _inheritsLoose(ListPage, _Page);
+
     //  static childContextTypes = {
     //        appConfig : PropTypes.object
     //  }
@@ -57,16 +75,21 @@
     //       appConfig: appConfig
     //   };
     // }
-    constructor(props) {
-      super(props);
-      this.state = {
+    function ListPage(props) {
+      var _this;
+
+      _this = _Page.call(this, props) || this;
+      _this.state = {
         selectedRows: [],
         selectedRowKeys: []
       };
+      return _this;
     } //缺失深度合并，只做一级合并
 
 
-    mergeTableConfig(config) {
+    var _proto = ListPage.prototype;
+
+    _proto.mergeTableConfig = function mergeTableConfig(config) {
       return Object.assign({
         size: 'middle',
         pagination: {
@@ -84,18 +107,16 @@
           selectedRowKeys: this.state.selectedRowKeys
         }
       });
-    }
+    };
     /**
      * 组件开始请求获取数据
      * @return {[type]} [description]
      */
 
 
-    componentWillMount() {
-      let {
-        actions
-      } = this.props; //  actions.listAction();
-    }
+    _proto.componentWillMount = function componentWillMount() {
+      var actions = this.props.actions; //  actions.listAction();
+    };
     /**
      * [onSelectChange ]
      * @param  {[type]} selectedRowKeys [description]
@@ -104,12 +125,12 @@
      */
 
 
-    onSelectChange(selectedRowKeys, selectedRows) {
+    _proto.onSelectChange = function onSelectChange(selectedRowKeys, selectedRows) {
       this.setState({
-        selectedRowKeys,
-        selectedRows
+        selectedRowKeys: selectedRowKeys,
+        selectedRows: selectedRows
       });
-    }
+    };
     /*
     selectRowShow(reactNode){
       const {selectedRowKeys}=this.state
@@ -123,66 +144,66 @@
      */
 
 
-    selectMultiple() {
+    _proto.selectMultiple = function selectMultiple() {
       return this.getSelectLength() <= 0;
-    }
+    };
     /**
      * [selectSingle 判断当前是否单选]
      * @return {[type]} [返回当前是否单选状态]
      */
 
 
-    selectSingle() {
+    _proto.selectSingle = function selectSingle() {
       return this.getSelectLength() != 1;
-    }
+    };
     /**
      * [getSelectLength 获取当前列表选中记录数量]
      * @return {[number]} [返回选中记录数量]
      */
 
 
-    getSelectLength() {
+    _proto.getSelectLength = function getSelectLength() {
       return this.getSelectRows().length;
-    }
+    };
     /**
      * [getSelectKeys 获取选中列表的RowKeys]
      * @return {[array[string]]} [返回数组 keys]
      */
 
 
-    getSelectKeys() {
+    _proto.getSelectKeys = function getSelectKeys() {
       return this.state.selectedRowKeys;
-    }
+    };
     /**
      * [getSelectRows 获取选中列表行数据]
      * @return {[array[object]]} [返回选中记录数据]
      */
 
 
-    getSelectRows() {
+    _proto.getSelectRows = function getSelectRows() {
       return this.state.selectedRows;
-    }
+    };
     /**
      * [clearSelectRows 清空已选列清数据记录]
      * @return null
      **/
 
 
-    clearSelectRows() {
+    _proto.clearSelectRows = function clearSelectRows() {
       this.setState({
         selectedRowKeys: [],
         selectedRows: []
       });
-    }
+    };
     /**
      * 新增路由监听
      * @return {无}
      */
 
 
-    handleAddRoute() {
+    _proto.handleAddRoute = function handleAddRoute() {
       this.goAdd();
-    }
+    };
     /**
      * 编辑路由监听
      * @param  {key} id [description]
@@ -190,19 +211,19 @@
      */
 
 
-    handleEditRoute(id) {
-      let key = id || this.getSelectKeys();
+    _proto.handleEditRoute = function handleEditRoute(id) {
+      var key = id || this.getSelectKeys();
       this.goEdit(key);
-    }
+    };
     /**
      * 取消或回退路由监听
      * @return {[null]}
      */
 
 
-    handleBackRoute() {
+    _proto.handleBackRoute = function handleBackRoute() {
       this.goBack();
-    }
+    };
     /**
      * [handleDeleteRoute 删除路由监听]
      * @param  {[rowskey]} id [description]
@@ -210,14 +231,13 @@
      */
 
 
-    handleDeleteRoute(id) {
-      let {
-        actions,
-        history
-      } = this.props;
-      let key = id || this.getSelectKeys();
+    _proto.handleDeleteRoute = function handleDeleteRoute(id) {
+      var _this$props = this.props,
+          actions = _this$props.actions,
+          history = _this$props.history;
+      var key = id || this.getSelectKeys();
       actions.deleteRoute(key);
-    }
+    };
     /**
      * [handleFilter 监听过滤方法，即搜索提交]
      * @param  {[object]} value [过滤数据条件对象]
@@ -225,13 +245,11 @@
      */
 
 
-    handleFilter(value) {
-      let {
-        actions
-      } = this.props;
+    _proto.handleFilter = function handleFilter(value) {
+      var actions = this.props.actions;
       this.clearSelectRows();
       actions.listAction(value);
-    }
+    };
     /**
      * [onChange 表格分页排序发生变化]
      * @param  {[type]} pagination [description]
@@ -241,42 +259,39 @@
      */
 
 
-    onChange(pagination, filters, sorter) {
-      let {
-        reducer
-      } = this.props; // this.querys()
+    _proto.onChange = function onChange(pagination, filters, sorter) {
+      var reducer = this.props.reducer; // this.querys()
 
       var object = Object.assign({}, this.searchParams(), pagination, sorter);
       this.handleFilter(object);
-    }
+    };
     /**
       *  获取查询条件参数
       *
       */
 
 
-    searchParams() {
-      const {
-        querys
-      } = this.props;
+    _proto.searchParams = function searchParams() {
+      var querys = this.props.querys;
       console.info("override searchPrams method!");
       return {};
-    }
+    };
     /**
      * 渲染搜索组件
      * @return {null} [description]
      */
 
 
-    renderSearchBar() {
+    _proto.renderSearchBar = function renderSearchBar() {
       return null;
-    }
+    };
 
-    render() {
+    _proto.render = function render() {
       return null;
-    }
+    };
 
-  }
+    return ListPage;
+  }(Page);
   ListPage.propTypes = {
     items: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
@@ -285,48 +300,58 @@
     querys: PropTypes.func
   };
 
-  class FormPage extends Page {
-    constructor(props) {
-      super(props);
-      this.state = {
+  var FormPage =
+  /*#__PURE__*/
+  function (_Page) {
+    _inheritsLoose(FormPage, _Page);
+
+    function FormPage(props) {
+      var _this;
+
+      _this = _Page.call(this, props) || this;
+      _this.state = {
         error: null,
         errorInfo: null
       };
+      return _this;
     }
 
-    saveFormRef(form) {
+    var _proto = FormPage.prototype;
+
+    _proto.saveFormRef = function saveFormRef(form) {
       this.form = form;
-    }
+    };
 
-    onSubmit(actionType) {
+    _proto.onSubmit = function onSubmit(actionType) {
+      var _this2 = this;
+
       if (actionType === 'handleSubmit') {
         this.form.validateFieldsAndScroll({
           force: true,
           first: true
-        }, (err, values) => {
+        }, function (err, values) {
           if (err) {
             return;
           }
 
-          this.handleSubmit(values);
+          _this2.handleSubmit(values);
         });
       } else {
         this[actionType].apply(this, [this.form.getFieldsValue()]);
       }
-    }
+    };
 
-    handleSubmit(values) {
-      let {
-        actions
-      } = this.props;
-    }
+    _proto.handleSubmit = function handleSubmit(values) {
+      var actions = this.props.actions;
+    };
 
-    render() {
+    _proto.render = function render() {
       // Normally, just render children
       return this.props.children;
-    }
+    };
 
-  }
+    return FormPage;
+  }(Page);
 
   exports.ListPage = ListPage;
   exports.FormPage = FormPage;
