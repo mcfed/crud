@@ -31,6 +31,10 @@ function (_Component) {
     this.goRoutes("edit/" + route);
   };
 
+  _proto.goDetail = function goDetail(route) {
+    this.goRoutes("detail/" + route);
+  };
+
   _proto.goRoutes = function goRoutes(route) {
     var _this$props = this.props,
         history = _this$props.history,

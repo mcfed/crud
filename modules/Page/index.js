@@ -12,6 +12,9 @@ export default class Page extends Component{
   goEdit(route){
     this.goRoutes(`edit/${route}`)
   }
+  goDetail(route){
+    this.goRoutes(`detail/${route}`)
+  }
   goRoutes(route){
     const {history,match} = this.props
     history.push(`${match.path}/${route}`)
