@@ -17,7 +17,7 @@ export default class Page extends Component{
   }
   goRoutes(route){
     const {history,match} = this.props
-    history.push(`${match.path}/${route}`)
+    history.push(`${match.url}/${route}`)
   }
   componentDidCatch(error, errorInfo) {
     // Display fallback UI

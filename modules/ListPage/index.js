@@ -141,6 +141,17 @@ export default class ListPage extends Page {
   }
 
   /**
+   * 编辑路由监听
+   * @param  {key} id [description]
+   * @return {[type]}    [description]
+   */
+
+  handleDetailRoute(id) {
+    let key = id || this.getSelectKeys()
+    this.goDetail(key)
+  }
+
+  /**
    * 取消或回退路由监听
    * @return {[null]}
    */

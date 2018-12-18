@@ -39,7 +39,8 @@ function (_Component) {
     var _this$props = this.props,
         history = _this$props.history,
         match = _this$props.match;
-    history.push(match.path + "/" + route);
+    console.log(match);
+    history.push(match.url + "/" + route);
   };
 
   _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
@@ -212,6 +213,17 @@ function (_Page) {
   _proto.handleEditRoute = function handleEditRoute(id) {
     var key = id || this.getSelectKeys();
     this.goEdit(key);
+  };
+  /**
+   * 编辑路由监听
+   * @param  {key} id [description]
+   * @return {[type]}    [description]
+   */
+
+
+  _proto.handleDetailRoute = function handleDetailRoute(id) {
+    var key = id || this.getSelectKeys();
+    this.goDetail(key);
   };
   /**
    * 取消或回退路由监听
