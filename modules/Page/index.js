@@ -10,11 +10,14 @@ export default class Page extends Component {
     this.goRoutes(`add`)
   }
   goEdit(route) {
-    this.goRoutes(`edit/${route}`)
+    this.goRoutes(`${route}/edit`)
+  }
+  goDetail(route) {
+    this.goRoutes(`${route}`)
   }
   goRoutes(route) {
     const { history, match } = this.props
-    history.push(`${match.path}/${route}`)
+    history.push(`${match.url}/${route}`)
   }
   addListener = (type, listener) => {
     if (this.props.eventEmitter) {

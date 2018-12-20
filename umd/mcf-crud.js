@@ -64,14 +64,18 @@
     };
 
     _proto.goEdit = function goEdit(route) {
-      this.goRoutes("edit/" + route);
+      this.goRoutes(route + "/edit");
+    };
+
+    _proto.goDetail = function goDetail(route) {
+      this.goRoutes("" + route);
     };
 
     _proto.goRoutes = function goRoutes(route) {
       var _this$props = this.props,
           history = _this$props.history,
           match = _this$props.match;
-      history.push(match.path + "/" + route);
+      history.push(match.url + "/" + route);
     };
 
     _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
@@ -244,6 +248,17 @@
     _proto.handleEditRoute = function handleEditRoute(id) {
       var key = id || this.getSelectKeys();
       this.goEdit(key);
+    };
+    /**
+     * 编辑路由监听
+     * @param  {key} id [description]
+     * @return {[type]}    [description]
+     */
+
+
+    _proto.handleDetailRoute = function handleDetailRoute(id) {
+      var key = id || this.getSelectKeys();
+      this.goDetail(key);
     };
     /**
      * 取消或回退路由监听
