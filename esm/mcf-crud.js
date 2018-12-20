@@ -28,18 +28,17 @@ function (_Component) {
   };
 
   _proto.goEdit = function goEdit(route) {
-    this.goRoutes("edit/" + route);
+    this.goRoutes(route + "/edit");
   };
 
   _proto.goDetail = function goDetail(route) {
-    this.goRoutes("detail/" + route);
+    this.goRoutes("" + route);
   };
 
   _proto.goRoutes = function goRoutes(route) {
     var _this$props = this.props,
         history = _this$props.history,
         match = _this$props.match;
-    console.log(match);
     history.push(match.url + "/" + route);
   };
 
