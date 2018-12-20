@@ -13,13 +13,43 @@
     subClass.__proto__ = superClass;
   }
 
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
   var Page =
   /*#__PURE__*/
   function (_Component) {
     _inheritsLoose(Page, _Component);
 
     function Page() {
-      return _Component.apply(this, arguments) || this;
+      var _this;
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+      _this.addListener = function (type, listener) {
+        if (_this.props.eventEmitter) {
+          _this.props.eventEmitter.removeAllListeners(type);
+
+          _this.props.eventEmitter.addListener(type, listener.bind(_assertThisInitialized(_assertThisInitialized(_this))));
+        }
+      };
+
+      _this.removeListener = function (type) {
+        if (_this.props.eventEmitter) {
+          _this.props.eventEmitter.removeAllListeners(type);
+        }
+      };
+
+      return _this;
     }
 
     var _proto = Page.prototype;
