@@ -3,7 +3,13 @@ import React from 'react';
 import {shallow,mount,render} from 'enzyme';
 import ListPage from '../index'
 
+class ListView extends ListPage{
 
+  render(){
+
+    return <div>1</div>
+  }
+}
 
 describe('ListPage shallow render', () => {
   const setup = () => {
@@ -17,7 +23,7 @@ describe('ListPage shallow render', () => {
 
     // 通过 enzyme 提供的 shallow(浅渲染) 创建组件
     const wrapper = shallow(
-      <ListPage {...props} />
+      <ListView {...props} />
     );
 
     return {
@@ -34,9 +40,10 @@ describe('ListPage shallow render', () => {
   })
 
 
-  it.skip('ListPage render set state ', (done) => {
-    wrapper.state('selectedRows')
-    expect(wrapper.state('selectedRowKeys')).toEqual([])
+  it('ListPage', (done) => {
+    wrapper.setState({'selectedRows':[{id:1}]})
+    console.dir(wrapper)
+    //expect(wrapper.state('selectedRowKeys')).toEqual([])
     done()
   })
 

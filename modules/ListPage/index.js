@@ -45,6 +45,7 @@ export default class ListPage extends Page {
       rowSelection:{
         onChange: this.onSelectChange.bind(this),
         selectedRowKeys:this.state.selectedRowKeys,
+        ...config.rowSelection
       }
     })
   }
