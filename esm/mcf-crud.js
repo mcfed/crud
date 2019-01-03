@@ -66,6 +66,13 @@ function (_Component) {
 
   var _proto = Page.prototype;
 
+  _proto.componentWillMount = function componentWillMount() {
+    var _this$props = this.props,
+        history = _this$props.history,
+        match = _this$props.match;
+    console.log(history, match);
+  };
+
   _proto.goBack = function goBack() {
     var history = this.props.history;
     history.goBack();
@@ -79,14 +86,19 @@ function (_Component) {
     this.goRoutes(route + "/edit");
   };
 
+  _proto.goList = function goList(route) {
+    this.goRoutes("" + route);
+  };
+
   _proto.goDetail = function goDetail(route) {
     this.goRoutes("" + route);
   };
 
   _proto.goRoutes = function goRoutes(route) {
-    var _this$props = this.props,
-        history = _this$props.history,
-        match = _this$props.match;
+    var _this$props2 = this.props,
+        history = _this$props2.history,
+        match = _this$props2.match; // console.log(route,match.url)
+
     history.push(match.url + "/" + route);
   };
 
@@ -138,11 +150,10 @@ function (_Page) {
   _proto.mergeTableConfig = function mergeTableConfig(config) {
     return Object.assign({
       size: 'middle',
-      pagination: {
-        showQuickJumper: true,
-        showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '50', '100'] // showTotal:this.showTotal(this),
-
+      pagination: {// showQuickJumper:true,
+        // showSizeChanger:true,
+        // pageSizeOptions:['10','20','50','100'],
+        // showTotal:this.showTotal(this),
       },
       style: {
         width: '100%'
