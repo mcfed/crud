@@ -156,10 +156,11 @@
     _proto.mergeTableConfig = function mergeTableConfig(config) {
       return Object.assign({
         size: 'middle',
-        pagination: {// showQuickJumper:true,
-          // showSizeChanger:true,
-          // pageSizeOptions:['10','20','50','100'],
+        pagination: {
+          showQuickJumper: false,
+          showSizeChanger: false // pageSizeOptions:['10','20','50','100'],
           // showTotal:this.showTotal(this),
+
         },
         style: {
           width: '100%'
