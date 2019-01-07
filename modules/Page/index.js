@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 export default class Page extends Component {
   componentWillMount(){
     const { history, match } = this.props
-    console.log(history,match)
+    // console.log(history,match)
   }
   goBack() {
     const { history } = this.props

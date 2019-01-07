@@ -75,8 +75,7 @@
     _proto.componentWillMount = function componentWillMount() {
       var _this$props = this.props,
           history = _this$props.history,
-          match = _this$props.match;
-      console.log(history, match);
+          match = _this$props.match; // console.log(history,match)
     };
 
     _proto.goBack = function goBack() {
