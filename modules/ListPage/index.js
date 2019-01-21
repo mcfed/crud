@@ -111,6 +111,15 @@ export default class ListPage extends Page {
   getSelectRows() {
     return this.state.selectedRows
   }
+  /**
+   * [getSearchParams 获取路径参数对象]
+   * @return {[array[object]]} [URLSearchParams]
+   */
+
+  getSearchParams() {
+    const { match: { params }, location: { search } } = this.props
+    return new URLSearchParams(search.substring(1))
+  }
 
   /**
    * [clearSelectRows 清空已选列清数据记录]
