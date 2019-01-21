@@ -11,6 +11,7 @@
 | getSelectLength | 获取列表选中数量 |  － | － | number  |
 | getSelectKeys | 获取列表选中数据keys |  － | － | array<string>  |
 | getSelectRows | 获取列表选中数据对象 |  － | － | array<object>  |
+| getSearchParams |  获取路径参数对象 |  － | － | URLSearchParams  |
 | clearSelectRows | 清空已选列清数据记录 |  － | － | number  |
 | handleAddRoute | 新增路由监听 |  － | － | － |
 | handleEditRoute | 编辑路由监听 |  id | － | -  |

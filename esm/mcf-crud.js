@@ -241,6 +241,18 @@ function (_Page) {
     return this.state.selectedRows;
   };
   /**
+   * [getSearchParams 获取路径参数对象]
+   * @return {[URLSearchParams]} [URLSearchParams]
+   */
+
+
+  _proto.getSearchParams = function getSearchParams() {
+    var _this$props = this.props,
+        params = _this$props.match.params,
+        search = _this$props.location.search;
+    return new URLSearchParams(search.substring(1));
+  };
+  /**
    * [clearSelectRows 清空已选列清数据记录]
    * @return null
    **/
@@ -300,9 +312,9 @@ function (_Page) {
 
 
   _proto.handleDeleteRoute = function handleDeleteRoute(id) {
-    var _this$props = this.props,
-        actions = _this$props.actions,
-        history = _this$props.history;
+    var _this$props2 = this.props,
+        actions = _this$props2.actions,
+        history = _this$props2.history;
     var key = id || this.getSelectKeys();
     actions.deleteRoute(key);
   };
