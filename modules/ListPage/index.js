@@ -113,7 +113,7 @@ export default class ListPage extends Page {
   }
   /**
    * [getSearchParams 获取路径参数对象]
-   * @return {[array[object]]} [URLSearchParams]
+   * @return {[URLSearchParams]} [URLSearchParams]
    */
 
   getSearchParams() {
