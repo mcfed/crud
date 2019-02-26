@@ -31,11 +31,12 @@ export default class ListPage extends Page {
   //缺失深度合并，只做一级合并
   mergeTableConfig(config){
     return Object.assign({
-      size:'small',
+      size:'middle',
       pagination:{
-         showQuickJumper:false,
+         showQuickJumper:true,
          showSizeChanger:true,
          pageSizeOptions:['10','20','50','100'],
+         size:"middle",
          // showTotal:this.showTotal(this),
       },
       style:{
