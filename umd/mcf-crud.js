@@ -156,9 +156,10 @@
       return Object.assign({
         size: 'middle',
         pagination: {
-          showQuickJumper: false,
-          showSizeChanger: false // pageSizeOptions:['10','20','50','100'],
-          // showTotal:this.showTotal(this),
+          showQuickJumper: true,
+          showSizeChanger: true,
+          pageSizeOptions: ['10', '20', '50', '100'],
+          size: "middle" // showTotal:this.showTotal(this),
 
         },
         style: {
