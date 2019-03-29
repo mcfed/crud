@@ -45,4 +45,7 @@ export default class Page extends Component {
       errorInfo: errorInfo
     });
   }
+  render(){
+    return undefined
+  }
 }

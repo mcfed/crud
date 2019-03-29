@@ -109,6 +109,10 @@ function (_Component) {
     });
   };
 
+  _proto.render = function render() {
+    return undefined;
+  };
+
   return Page;
 }(Component);
 
@@ -408,8 +412,7 @@ function (_Page) {
 
     if (actionType === 'handleSubmit') {
       this.form.validateFieldsAndScroll({
-        force: true,
-        first: true
+        force: true
       }, function (err, values) {
         if (err) {
           return;

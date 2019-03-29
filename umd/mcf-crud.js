@@ -115,6 +115,10 @@
       });
     };
 
+    _proto.render = function render() {
+      return undefined;
+    };
+
     return Page;
   }(react.Component);
 
@@ -414,8 +418,7 @@
 
       if (actionType === 'handleSubmit') {
         this.form.validateFieldsAndScroll({
-          force: true,
-          first: true
+          force: true
         }, function (err, values) {
           if (err) {
             return;

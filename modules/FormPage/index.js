@@ -12,7 +12,7 @@ export default class FormPage extends Page{
   }
   onSubmit(actionType){
     if(actionType ==='handleSubmit'){
-      this.form.validateFieldsAndScroll({force:true,first:true},(err,values) => {
+      this.form.validateFieldsAndScroll({force:true},(err,values) => {
          if (err) {
            return;
          }
