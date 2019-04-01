@@ -126,16 +126,6 @@ var ListPage =
 function (_Page) {
   _inheritsLoose(ListPage, _Page);
 
-  //  static childContextTypes = {
-  //        appConfig : PropTypes.object
-  //  }
-  //
-  //  getChildContext(){
-  //   var { appConfig } =this.props;
-  //   return {
-  //       appConfig: appConfig
-  //   };
-  // }
   function ListPage(props) {
     var _this;
 
@@ -201,7 +191,27 @@ function (_Page) {
   */
 
   /**
+   * [isMultipleSelect 判断当前是否多选]
+   * @return {[boolean]} [返回是否多选状态]
+   */
+
+
+  _proto.isSelectMultiple = function isSelectMultiple() {
+    return this.getSelectLength() >= 1;
+  };
+  /**
+   * [isSelectSingle 判断当前是否单选]
+   * @return {[boolean]} [返回是否多选状态]
+   */
+
+
+  _proto.isSelectSingle = function isSelectSingle() {
+    return this.getSelectLength() == 1;
+  };
+  /**
    * [selectMultiple 判断当前是否多选]
+   * 方法反实现过时处理
+   * 建议使用isSelectMultiple
    * @return {[boolean]} [返回是否多选状态]
    */
 
@@ -211,6 +221,8 @@ function (_Page) {
   };
   /**
    * [selectSingle 判断当前是否单选]
+   * 方法反实现过时处理
+   * 建议使用isSelectSingle
    * @return {[type]} [返回当前是否单选状态]
    */
 
@@ -252,9 +264,7 @@ function (_Page) {
 
 
   _proto.getSearchParams = function getSearchParams() {
-    var _this$props = this.props,
-        params = _this$props.match.params,
-        search = _this$props.location.search;
+    var search = this.props.location.search;
     return new URLSearchParams(search.substring(1));
   };
   /**
@@ -317,9 +327,7 @@ function (_Page) {
 
 
   _proto.handleDeleteRoute = function handleDeleteRoute(id) {
-    var _this$props2 = this.props,
-        actions = _this$props2.actions,
-        history = _this$props2.history;
+    var actions = this.props.actions;
     var key = id || this.getSelectKeys();
     actions.deleteRoute(key);
   };
@@ -379,7 +387,7 @@ function (_Page) {
 }(Page);
 ListPage.propTypes = {
   items: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  actions: PropTypes.object,
   types: PropTypes.object,
   spins: PropTypes.func,
   querys: PropTypes.func
