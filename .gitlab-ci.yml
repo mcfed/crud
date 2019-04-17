@@ -14,9 +14,12 @@ before_script:
 test_job:
     stage: test
     script:
-      - npm run test
+      - npm run test --coverage
+    coverage: '/Code coverage: \d+\.\d+/'
     tags:
       - master
+      - develop
+    
 
 build_job:
     stage: compile
@@ -24,3 +27,4 @@ build_job:
       - npm run build
     tags:
       - master
+      - develop
