@@ -5,7 +5,7 @@
   "module": "esm/mcf-crud.js",
   "main": "umd/mcf-crud.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "rollup -c --watch",
     "build": "rollup -c"
   },

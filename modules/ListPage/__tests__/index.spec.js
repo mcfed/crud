@@ -13,7 +13,7 @@ class ListView extends ListPage{
 
 describe('ListPage shallow render', () => {
   const setup = (props) => {
-    
+
     const wrapper = shallow(
       <ListView {...props} items={[]} />
     );
@@ -58,7 +58,7 @@ describe('ListPage shallow render', () => {
 
   it('ListPage method selectSingle reverse',(done)=>{
     const { wrapper } = setup();
-    expect(wrapper.instance().selectMultiple()).toBe(true)
+    expect(wrapper.instance().selectSingle()).toBe(true)
     done()
   })
 

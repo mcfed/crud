@@ -153,7 +153,7 @@ function (_Page) {
       style: {
         width: '100%'
       }
-    }, config, {
+    }, config, config.rowSelection === null ? {} : {
       rowSelection: _extends({
         onChange: this.onSelectChange.bind(this),
         selectedRowKeys: this.state.selectedRowKeys

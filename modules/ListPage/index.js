@@ -32,7 +32,7 @@ export default class ListPage extends Page {
       style:{
         width:'100%'
       },
-    },config,{
+    },config,config.rowSelection===null?{}:{
       rowSelection:{
         onChange: this.onSelectChange.bind(this),
         selectedRowKeys:this.state.selectedRowKeys,
