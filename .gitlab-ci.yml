@@ -14,8 +14,8 @@ before_script:
 test_job:
     stage: test
     script:
-      - npm run test --coverage
-    coverage: '/Code coverage: \d+\.\d+/'
+      - npm run test
+    coverage: '/^All files\s+\|\s+\d+\.*\d*\s+\|\s*(\d+\.*\d*)/'
     tags:
       - master
       - develop
