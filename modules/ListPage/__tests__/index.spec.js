@@ -164,14 +164,14 @@ describe('ListPage shallow render', () => {
   it('ListPage method handleFilter',(done)=>{
     const props={
       actions:{
-        listAction:jest.fn()
+        fetchPage:jest.fn()
       }
     }
     const { wrapper } = setup(props);
     wrapper.instance().handleFilter(undefined)
     expect(wrapper.state('selectedRowKeys')).toEqual([])
     expect(wrapper.state('selectedRows')).toEqual([])
-    expect(props.actions.listAction.mock.calls.length).toBe(1)
+    expect(props.actions.fetchPage.mock.calls.length).toBe(1)
     done()
   })
 

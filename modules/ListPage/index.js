@@ -201,7 +201,7 @@ export default class ListPage extends Page {
   handleFilter(value) {
     let {actions} = this.props
     this.clearSelectRows()
-    actions.listAction(value)
+    actions.fetchPage(value)
   }
 
     /**
