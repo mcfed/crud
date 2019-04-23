@@ -3,19 +3,12 @@ import React from 'react';
 import {shallow,mount,render} from 'enzyme';
 import ListPage from '../index'
 
-class ListView extends ListPage{
-
-  render(){
-
-    return <div>1</div>
-  }
-}
 
 describe('ListPage shallow render', () => {
   const setup = (props) => {
 
     const wrapper = shallow(
-      <ListView {...props} items={[]} />
+      <ListPage {...props} items={[]} />
     );
 
     return {
@@ -36,6 +29,37 @@ describe('ListPage shallow render', () => {
     const { wrapper } = setup();
     wrapper.setState({'selectedRows':[{id:1}]})
     // expect(wrapper.state('selectedRowKeys')).toEqual([])
+    done()
+  })
+
+  it("LIstPage method mergeTableConfig rowSelection null",(done)=>{
+
+    const { wrapper } = setup();
+    const config={
+      rowSelection:null
+    }
+    expect(wrapper.instance().mergeTableConfig(config)).toHaveProperty("rowSelection",null)
+    done()
+  })
+
+  it("LIstPage method mergeTableConfig rowSelection {}",(done)=>{
+
+    const { wrapper } = setup();
+    const onChangeMock=jest.fn()
+    const defaultConfig={
+      rowSelection:{
+        onChange: onChangeMock.bind(wrapper.instance()),
+        selectedRowKeys:[1,2,3],
+      }
+    }
+    const config={
+      rowSelection:{
+        selectedRowKeys:[]
+      }
+    }
+    wrapper.instance().onSelectChange=onChangeMock
+    // expect(wrapper.instance().mergeTableConfig(config)).toHaveProperty("rowSelection",Object.assign(defaultConfig.rowSelection,config.rowSelection))
+    expect(wrapper.instance().mergeTableConfig(config).rowSelection.selectedRowKeys).toEqual(Object.assign(defaultConfig.rowSelection,config.rowSelection).selectedRowKeys)
     done()
   })
 
@@ -124,7 +148,7 @@ describe('ListPage shallow render', () => {
     done()
   })
 
-  it('ListPage method handleEditRoute',(done)=>{
+  it('ListPage method handleEditRoute has id',(done)=>{
     const { wrapper } = setup();
     wrapper.instance().goEdit=jest.fn()
     wrapper.instance().handleEditRoute(1)
@@ -132,10 +156,26 @@ describe('ListPage shallow render', () => {
     done()
   })
 
-  it('ListPage method handleDetailRoute',(done)=>{
+  it('ListPage method handleEditRoute no id',(done)=>{
+    const { wrapper } = setup();
+    wrapper.instance().goEdit=jest.fn()
+    wrapper.instance().handleEditRoute()
+    expect(wrapper.instance().goEdit.mock.calls.length).toBe(1)
+    done()
+  })
+
+  it('ListPage method handleDetailRoute has id',(done)=>{
     const { wrapper } = setup();
     wrapper.instance().goDetail=jest.fn()
     wrapper.instance().handleDetailRoute(1)
+    expect(wrapper.instance().goDetail.mock.calls.length).toBe(1)
+    done()
+  })
+
+  it('ListPage method handleDetailRoute no id',(done)=>{
+    const { wrapper } = setup();
+    wrapper.instance().goDetail=jest.fn()
+    wrapper.instance().handleDetailRoute()
     expect(wrapper.instance().goDetail.mock.calls.length).toBe(1)
     done()
   })
@@ -149,7 +189,7 @@ describe('ListPage shallow render', () => {
   })
 
 
-  it('ListPage method handleDeleteRoute',(done)=>{
+  it('ListPage method handleDeleteRoute has id',(done)=>{
     const props={
       actions:{
         deleteRoute:jest.fn()
@@ -157,6 +197,18 @@ describe('ListPage shallow render', () => {
     }
     const { wrapper } = setup(props);
     wrapper.instance().handleDeleteRoute(1)
+    expect(props.actions.deleteRoute.mock.calls.length).toBe(1)
+    done()
+  })
+
+  it('ListPage method handleDeleteRoute no id',(done)=>{
+    const props={
+      actions:{
+        deleteRoute:jest.fn()
+      }
+    }
+    const { wrapper } = setup(props);
+    wrapper.instance().handleDeleteRoute()
     expect(props.actions.deleteRoute.mock.calls.length).toBe(1)
     done()
   })
@@ -183,5 +235,18 @@ describe('ListPage shallow render', () => {
     expect(wrapper.instance().handleFilter.mock.calls.length).toBe(1)
     done()
   })
+
+  it('list method renderSearchBar',(done)=>{
+    const { wrapper } = setup();
+    expect(wrapper.instance().renderSearchBar()).toBe(null)
+    done()
+  })
+
+  it('list method render',(done)=>{
+    const { wrapper } = setup();
+    expect(wrapper.instance().render()).toBe(null)
+    done()
+  })
+
 
 })

@@ -25,43 +25,13 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
 var Page =
 /*#__PURE__*/
 function (_Component) {
   _inheritsLoose(Page, _Component);
 
   function Page() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _this.addListener = function (type, listener) {
-      if (_this.props.eventEmitter) {
-        _this.props.eventEmitter.removeAllListeners(type);
-
-        _this.props.eventEmitter.addListener(type, listener.bind(_assertThisInitialized(_assertThisInitialized(_this))));
-      }
-    };
-
-    _this.removeListener = function (type) {
-      if (_this.props.eventEmitter) {
-        _this.props.eventEmitter.removeAllListeners(type);
-      }
-    };
-
-    return _this;
+    return _Component.apply(this, arguments) || this;
   }
 
   var _proto = Page.prototype;
@@ -99,14 +69,6 @@ function (_Component) {
         match = _this$props2.match; // console.log(route,match.url)
 
     history.push(match.url + "/" + route);
-  };
-
-  _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
-    // Display fallback UI
-    this.setState({
-      error: error,
-      errorInfo: errorInfo
-    });
   };
 
   _proto.render = function render() {
@@ -341,7 +303,7 @@ function (_Page) {
   _proto.handleFilter = function handleFilter(value) {
     var actions = this.props.actions;
     this.clearSelectRows();
-    actions.listAction(value);
+    actions.fetchPage(value);
   };
   /**
    * [onChange 表格分页排序发生变化]
@@ -365,8 +327,8 @@ function (_Page) {
 
 
   _proto.searchParams = function searchParams() {
-    var querys = this.props.querys;
-    console.info("override searchPrams method!");
+    var querys = this.props.querys; // console.info("override searchPrams method!")
+
     return {};
   };
   /**
@@ -399,14 +361,7 @@ function (_Page) {
   _inheritsLoose(FormPage, _Page);
 
   function FormPage(props) {
-    var _this;
-
-    _this = _Page.call(this, props) || this;
-    _this.state = {
-      error: null,
-      errorInfo: null
-    };
-    return _this;
+    return _Page.call(this, props) || this;
   }
 
   var _proto = FormPage.prototype;
@@ -416,7 +371,7 @@ function (_Page) {
   };
 
   _proto.onSubmit = function onSubmit(actionType) {
-    var _this2 = this;
+    var _this = this;
 
     if (actionType === 'handleSubmit') {
       this.form.validateFieldsAndScroll({
@@ -426,15 +381,11 @@ function (_Page) {
           return;
         }
 
-        _this2.handleSubmit(values);
+        _this.handleSubmit(values);
       });
     } else {
       this[actionType].apply(this, [this.form.getFieldsValue()]);
     }
-  };
-
-  _proto.handleSubmit = function handleSubmit(values) {
-    var actions = this.props.actions;
   };
 
   _proto.render = function render() {

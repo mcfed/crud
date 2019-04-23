@@ -27,24 +27,6 @@ export default class Page extends Component {
     // console.log(route,match.url)
     history.push(`${match.url}/${route}`)
   }
-  addListener = (type, listener) => {
-    if (this.props.eventEmitter) {
-      this.props.eventEmitter.removeAllListeners(type)
-      this.props.eventEmitter.addListener(type, listener.bind(this))
-    }
-  }
-  removeListener = (type) => {
-    if (this.props.eventEmitter) {
-      this.props.eventEmitter.removeAllListeners(type)
-    }
-  }
-  componentDidCatch(error, errorInfo) {
-    // Display fallback UI
-    this.setState({
-      error: error,
-      errorInfo: errorInfo
-    });
-  }
   render(){
     return undefined
   }

@@ -71,6 +71,11 @@ describe('ListPage shallow render', () => {
     done()
   })
 
+  it("page method render()",(done)=>{
+    expect(wrapper.instance().render()).toBe(undefined)
+    done()
+  })
+
 
 
 

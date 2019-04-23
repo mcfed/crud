@@ -5,7 +5,6 @@ import Page from '../Page'
 export default class FormPage extends Page{
   constructor(props) {
     super(props);
-    this.state = { error: null, errorInfo: null };
   }
   saveFormRef(form){
     this.form = form;
@@ -21,9 +20,6 @@ export default class FormPage extends Page{
     }else{
       this[actionType].apply(this,[this.form.getFieldsValue()])
     }
-  }
-  handleSubmit(values){
-    let {actions} = this.props;
   }
   render() {
     // Normally, just render children

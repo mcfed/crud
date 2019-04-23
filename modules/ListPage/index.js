@@ -223,7 +223,7 @@ export default class ListPage extends Page {
     */
   searchParams(){
     const  {querys} = this.props
-    console.info("override searchPrams method!")
+    // console.info("override searchPrams method!")
     return {}
   }
   /**
