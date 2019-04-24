@@ -5,14 +5,13 @@ import Page from '../Page'
 export default class FormPage extends Page{
   constructor(props) {
     super(props);
-    this.state = { error: null, errorInfo: null };
   }
   saveFormRef(form){
     this.form = form;
   }
   onSubmit(actionType){
     if(actionType ==='handleSubmit'){
-      this.form.validateFieldsAndScroll({force:true,first:true},(err,values) => {
+      this.form.validateFieldsAndScroll({force:true},(err,values) => {
          if (err) {
            return;
          }
@@ -21,9 +20,6 @@ export default class FormPage extends Page{
     }else{
       this[actionType].apply(this,[this.form.getFieldsValue()])
     }
-  }
-  handleSubmit(values){
-    let {actions} = this.props;
   }
   render() {
     // Normally, just render children

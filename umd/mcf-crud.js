@@ -31,43 +31,13 @@
     subClass.__proto__ = superClass;
   }
 
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
   var Page =
   /*#__PURE__*/
   function (_Component) {
     _inheritsLoose(Page, _Component);
 
     function Page() {
-      var _this;
-
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-      _this.addListener = function (type, listener) {
-        if (_this.props.eventEmitter) {
-          _this.props.eventEmitter.removeAllListeners(type);
-
-          _this.props.eventEmitter.addListener(type, listener.bind(_assertThisInitialized(_assertThisInitialized(_this))));
-        }
-      };
-
-      _this.removeListener = function (type) {
-        if (_this.props.eventEmitter) {
-          _this.props.eventEmitter.removeAllListeners(type);
-        }
-      };
-
-      return _this;
+      return _Component.apply(this, arguments) || this;
     }
 
     var _proto = Page.prototype;
@@ -107,12 +77,8 @@
       history.push(match.url + "/" + route);
     };
 
-    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
-      // Display fallback UI
-      this.setState({
-        error: error,
-        errorInfo: errorInfo
-      });
+    _proto.render = function render() {
+      return undefined;
     };
 
     return Page;
@@ -128,16 +94,6 @@
   function (_Page) {
     _inheritsLoose(ListPage, _Page);
 
-    //  static childContextTypes = {
-    //        appConfig : PropTypes.object
-    //  }
-    //
-    //  getChildContext(){
-    //   var { appConfig } =this.props;
-    //   return {
-    //       appConfig: appConfig
-    //   };
-    // }
     function ListPage(props) {
       var _this;
 
@@ -165,7 +121,7 @@
         style: {
           width: '100%'
         }
-      }, config, {
+      }, config, config.rowSelection === null ? {} : {
         rowSelection: _extends({
           onChange: this.onSelectChange.bind(this),
           selectedRowKeys: this.state.selectedRowKeys
@@ -203,7 +159,27 @@
     */
 
     /**
+     * [isMultipleSelect 判断当前是否多选]
+     * @return {[boolean]} [返回是否多选状态]
+     */
+
+
+    _proto.isSelectMultiple = function isSelectMultiple() {
+      return this.getSelectLength() >= 1;
+    };
+    /**
+     * [isSelectSingle 判断当前是否单选]
+     * @return {[boolean]} [返回是否多选状态]
+     */
+
+
+    _proto.isSelectSingle = function isSelectSingle() {
+      return this.getSelectLength() == 1;
+    };
+    /**
      * [selectMultiple 判断当前是否多选]
+     * 方法反实现过时处理
+     * 建议使用isSelectMultiple
      * @return {[boolean]} [返回是否多选状态]
      */
 
@@ -213,6 +189,8 @@
     };
     /**
      * [selectSingle 判断当前是否单选]
+     * 方法反实现过时处理
+     * 建议使用isSelectSingle
      * @return {[type]} [返回当前是否单选状态]
      */
 
@@ -254,9 +232,7 @@
 
 
     _proto.getSearchParams = function getSearchParams() {
-      var _this$props = this.props,
-          params = _this$props.match.params,
-          search = _this$props.location.search;
+      var search = this.props.location.search;
       return new URLSearchParams(search.substring(1));
     };
     /**
@@ -319,9 +295,7 @@
 
 
     _proto.handleDeleteRoute = function handleDeleteRoute(id) {
-      var _this$props2 = this.props,
-          actions = _this$props2.actions,
-          history = _this$props2.history;
+      var actions = this.props.actions;
       var key = id || this.getSelectKeys();
       actions.deleteRoute(key);
     };
@@ -335,7 +309,7 @@
     _proto.handleFilter = function handleFilter(value) {
       var actions = this.props.actions;
       this.clearSelectRows();
-      actions.listAction(value);
+      actions.fetchPage(value);
     };
     /**
      * [onChange 表格分页排序发生变化]
@@ -359,8 +333,8 @@
 
 
     _proto.searchParams = function searchParams() {
-      var querys = this.props.querys;
-      console.info("override searchPrams method!");
+      var querys = this.props.querys; // console.info("override searchPrams method!")
+
       return {};
     };
     /**
@@ -381,7 +355,7 @@
   }(Page);
   ListPage.propTypes = {
     items: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired,
+    actions: PropTypes.object,
     types: PropTypes.object,
     spins: PropTypes.func,
     querys: PropTypes.func
@@ -393,14 +367,7 @@
     _inheritsLoose(FormPage, _Page);
 
     function FormPage(props) {
-      var _this;
-
-      _this = _Page.call(this, props) || this;
-      _this.state = {
-        error: null,
-        errorInfo: null
-      };
-      return _this;
+      return _Page.call(this, props) || this;
     }
 
     var _proto = FormPage.prototype;
@@ -410,26 +377,21 @@
     };
 
     _proto.onSubmit = function onSubmit(actionType) {
-      var _this2 = this;
+      var _this = this;
 
       if (actionType === 'handleSubmit') {
         this.form.validateFieldsAndScroll({
-          force: true,
-          first: true
+          force: true
         }, function (err, values) {
           if (err) {
             return;
           }
 
-          _this2.handleSubmit(values);
+          _this.handleSubmit(values);
         });
       } else {
         this[actionType].apply(this, [this.form.getFieldsValue()]);
       }
-    };
-
-    _proto.handleSubmit = function handleSubmit(values) {
-      var actions = this.props.actions;
     };
 
     _proto.render = function render() {
