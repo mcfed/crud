@@ -205,7 +205,7 @@
 
 
     _proto.getSelectLength = function getSelectLength() {
-      return this.getSelectRows().length;
+      return this.getSelectKeys().length;
     };
     /**
      * [getSelectKeys 获取选中列表的RowKeys]

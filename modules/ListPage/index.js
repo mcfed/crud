@@ -105,7 +105,7 @@ export default class ListPage extends Page {
    * @return {[number]} [返回选中记录数量]
    */
   getSelectLength() {
-    return this.getSelectRows().length
+    return this.getSelectKeys().length
   }
   /**
    * [getSelectKeys 获取选中列表的RowKeys]
