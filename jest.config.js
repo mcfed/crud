@@ -29,7 +29,7 @@ module.exports = {
     '__mocks__',
 
   ],
-  "snapshotSerializers": ["enzyme-to-json/serializer"],
+  // "snapshotSerializers": ["enzyme-to-json/serializer"],
   moduleFileExtensions: ['', 'json', 'js', 'jsx', 'less'], //测试模块中用到的文件的后缀名配置
   modulePaths: ['<rootDir>/src'],
   moduleNameMapper: {  //与测试无关的资源文件同意mock 掉，这样在import 的时候就不会真的引入这些文件
