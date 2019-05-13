@@ -1,6 +1,6 @@
 {
   "name": "mcf-crud",
-  "version": "1.0.0",
+  "version": "1.0.0-rc",
   "description": "@mcf for crud",
   "module": "esm/mcf-crud.js",
   "main": "umd/mcf-crud.js",
@@ -15,6 +15,10 @@
     "modules",
     "developer"
   ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.mchz.com.cn/mcf/crud.git"
+  },
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
@@ -43,7 +47,6 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.0.0",
-    "react-dom": "16.0.0",
-    "events": "^3.0.0"
+    "react-dom": "16.0.0"
   }
 }

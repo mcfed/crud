@@ -10,16 +10,6 @@ import Page from '../Page'
 
 export default class ListPage extends Page {
 
- //  static childContextTypes = {
- //        appConfig : PropTypes.object
- //  }
- //
- //  getChildContext(){
- //   var { appConfig } =this.props;
- //   return {
- //       appConfig: appConfig
- //   };
- // }
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +32,7 @@ export default class ListPage extends Page {
       style:{
         width:'100%'
       },
-    },config,{
+    },config,config.rowSelection===null?{}:{
       rowSelection:{
         onChange: this.onSelectChange.bind(this),
         selectedRowKeys:this.state.selectedRowKeys,
@@ -75,8 +65,27 @@ export default class ListPage extends Page {
     return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" style={{textAlign:'left'}}><span>已选<span className="countNum">{selectedRowKeys.length}</span>条数据</span>{reactNode}</div>) :null
   }
   */
+
+  /**
+   * [isMultipleSelect 判断当前是否多选]
+   * @return {[boolean]} [返回是否多选状态]
+   */
+  isSelectMultiple(){
+    return this.getSelectLength()>=1
+  }
+
+  /**
+   * [isSelectSingle 判断当前是否单选]
+   * @return {[boolean]} [返回是否多选状态]
+   */
+  isSelectSingle(){
+    return this.getSelectLength()==1
+  }
+
   /**
    * [selectMultiple 判断当前是否多选]
+   * 方法反实现过时处理
+   * 建议使用isSelectMultiple
    * @return {[boolean]} [返回是否多选状态]
    */
   selectMultiple(){
@@ -84,6 +93,8 @@ export default class ListPage extends Page {
   }
   /**
    * [selectSingle 判断当前是否单选]
+   * 方法反实现过时处理
+   * 建议使用isSelectSingle
    * @return {[type]} [返回当前是否单选状态]
    */
   selectSingle(){
@@ -118,7 +129,7 @@ export default class ListPage extends Page {
    */
 
   getSearchParams() {
-    const { match: { params }, location: { search } } = this.props
+    const { location: { search } } = this.props
     return new URLSearchParams(search.substring(1))
   }
 
@@ -176,7 +187,7 @@ export default class ListPage extends Page {
    * @return {[null]}    [description]
    */
   handleDeleteRoute(id) {
-    let {actions, history} = this.props
+    let {actions} = this.props
     let key = id || this.getSelectKeys()
     actions.deleteRoute(key)
   }
@@ -190,7 +201,7 @@ export default class ListPage extends Page {
   handleFilter(value) {
     let {actions} = this.props
     this.clearSelectRows()
-    actions.listAction(value)
+    actions.fetchPage(value)
   }
 
     /**
@@ -212,7 +223,7 @@ export default class ListPage extends Page {
     */
   searchParams(){
     const  {querys} = this.props
-    console.info("override searchPrams method!")
+    // console.info("override searchPrams method!")
     return {}
   }
   /**
@@ -230,7 +241,7 @@ export default class ListPage extends Page {
 
 ListPage.propTypes={
   items:PropTypes.array.isRequired,
-  actions:PropTypes.object.isRequired,
+  actions:PropTypes.object,
   types:PropTypes.object,
   spins:PropTypes.func,
   querys:PropTypes.func

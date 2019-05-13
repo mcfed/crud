@@ -15,8 +15,11 @@ test_job:
     stage: test
     script:
       - npm run test
+    coverage: '/^All files\s+\|\s+\d+\.*\d*\s+\|\s*(\d+\.*\d*)/'
     tags:
       - master
+      - develop
+    
 
 build_job:
     stage: compile
@@ -24,3 +27,4 @@ build_job:
       - npm run build
     tags:
       - master
+      - develop
