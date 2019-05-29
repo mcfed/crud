@@ -1,33 +1,45 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 //import PropTypes from 'prop-types'
 
 export default class Page extends Component {
-  componentWillMount(){
-    const { history, match } = this.props
+  componentWillMount() {
+    const { history, match } = this.props;
     // console.log(history,match)
   }
   goBack() {
-    const { history } = this.props
-    history.goBack()
+    const { history } = this.props;
+    history.goBack();
   }
   goAdd() {
-    this.goRoutes(`add`)
+    this.goRoutes(`add`);
   }
   goEdit(route) {
-    this.goRoutes(`${route}/edit`)
+    this.goRoutes(`${route}/edit`);
   }
-  goList(route){
-    this.goRoutes(`${route}`)
+  goList(route) {
+    this.goRoutes(`${route}`);
   }
   goDetail(route) {
-    this.goRoutes(`${route}`)
+    this.goRoutes(`${route}`);
   }
   goRoutes(route) {
-    const { history, match } = this.props
+    const { history, match } = this.props;
     // console.log(route,match.url)
-    history.push(`${match.url}/${route}`)
+    history.push(`${match.url}/${route}`);
   }
-  render(){
-    return undefined
+  addListener = (type, listener) => {
+    if (this.props.eventEmitter) {
+      this.props.eventEmitter.removeAllListeners(type);
+      this.props.eventEmitter.addListener(type, listener.bind(this));
+    }
+  };
+  removeListener = type => {
+    if (this.props.eventEmitter) {
+      this.props.eventEmitter.removeAllListeners(type);
+    }
+  };
+
+  render() {
+    return undefined;
   }
 }
