@@ -1,6 +1,6 @@
 stages:
-    - test
-    - compile
+  - test
+  - compile
 
 cache:
   key: ${CI_BUILD_REF_NAME}
@@ -9,22 +9,21 @@ cache:
     - dist/
 
 before_script:
-    - npm install --save-dev
+  - npm install --save-dev
 
 test_job:
-    stage: test
-    script:
-      - npm run test
-    coverage: '/^All files\s+\|\s+\d+\.*\d*\s+\|\s*(\d+\.*\d*)/'
-    tags:
-      - master
-      - develop
-    
+  stage: test
+  script:
+    - npm run test --coverage
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)
+  tags:
+    - master
+    - develop
 
 build_job:
-    stage: compile
-    script:
-      - npm run build
-    tags:
-      - master
-      - develop
+  stage: compile
+  script:
+    - npm run build
+  tags:
+    - master
+    - develop
