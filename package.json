@@ -1,6 +1,6 @@
 {
   "name": "mcf-crud",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "@mcf for crud",
   "module": "esm/mcf-crud.js",
   "main": "umd/mcf-crud.js",
@@ -16,6 +16,10 @@
     "modules",
     "developer"
   ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.mchz.com.cn/mcf/crud.git"
+  },
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
