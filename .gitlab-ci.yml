@@ -15,7 +15,7 @@ test_job:
   stage: test
   script:
     - npm run test --coverage
-  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)'
   tags:
     - master
     - develop
