@@ -1,4 +1,4 @@
-<!-- 
+<!--
 // Please add your own contribution below inside the Master section, no need to
 // set a version number, that happens during a deploy. Thanks!
 //
@@ -17,3 +17,4 @@
 # 1.3.0
 
 - 重新修改打包机制，master 上使用自动化发布 [@zhouhuan]
+- 取消umd发布包，改用cjs和es方式 [@zhouhuan]
