@@ -22,12 +22,12 @@ export default class ListPage extends Page {
    */
   mergeTableConfig(config){
     return Object.assign({
-      size:'middle',
+      size:'small',
       pagination:{
          showQuickJumper:true,
          showSizeChanger:true,
          pageSizeOptions:['10','20','50','100'],
-         size:"middle",
+         size:"small",
          // showTotal:this.showTotal(this),
       },
       style:{
