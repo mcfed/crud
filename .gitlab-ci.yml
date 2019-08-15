@@ -23,8 +23,7 @@ build_job:
 test_job:
   stage: test
   script:
-    - npm run test --coverage
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+    - npm run test
   tags:
     - master
     - develop
@@ -35,6 +34,6 @@ deploy_job:
     - npm run build
     - npm publish
   only:
-    - master
+    - tags
   tags:
     - master
