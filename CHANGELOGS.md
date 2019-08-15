@@ -16,6 +16,7 @@
 # 1.3.1
 
 - 修改table size 为 small [@guor]
+- 增加umd发布方式 [@zhouhuan]
 
 # 1.3.0
 

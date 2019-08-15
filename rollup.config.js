@@ -29,7 +29,7 @@ const external = id => !id.startsWith(".") && !id.startsWith("\/");
 
 export default [{
   input,
-  output: { file: `es/${pkg.name}.js`, format: "es" },
+  output: { file: `umd/${pkg.name}.js`, format: "umd" ,name},
   external:Object.keys(globals),
   plugins: [
     babel(babelOptionsESM),
