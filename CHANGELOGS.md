@@ -18,3 +18,8 @@
 
 - 重新修改打包机制，master 上使用自动化发布 [@zhouhuan]
 - 取消umd发布包，改用cjs和es方式 [@zhouhuan]
+
+# 1.3.1
+
+- 修改table size 为 small [@guorong]
+
