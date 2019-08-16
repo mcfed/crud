@@ -32,6 +32,7 @@ export default [{
   output: { file: `umd/${pkg.name}.js`, format: "umd" ,name},
   external:Object.keys(globals),
   plugins: [
+    nodeResolve(),
     babel(babelOptionsESM),
     commonjs(commonjsOptions),
     sizeSnapshot()
