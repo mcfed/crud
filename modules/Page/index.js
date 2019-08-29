@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 //import PropTypes from 'prop-types'
 
-export default class Page extends Component {
+export default class RPage extends Component {
   componentWillMount() {
     const { history, match } = this.props;
     // console.log(history,match)
