@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import ListPage from '../index'
+import ListPage from '../List.react'
 
 
 describe('ListPage shallow render', () => {

@@ -1,5 +1,6 @@
+import { URLSearchParams } from "url";
 
-interface IList extends IPage{
+export default interface IList {
   onSelectChange(selectRowKey:Array<String>,selectedRows:Object):void
   isSelectMultiple():Boolean
   isSelectSingle():Boolean
@@ -11,12 +12,11 @@ interface IList extends IPage{
   getSearchParams():URLSearchParams
   clearSelectRows():void
   handleAddRoute():void
-  handleEditRoute(id:string|number):void
-  handleDetailRoute(id:string|number):void
+  handleEditRoute(id:string):void
+  handleDetailRoute(id:string):void
   handleBackRoute():void
-  handleDeleteRoute(id:string|number):void
   handleFilter(value:Object):void
   onChange(pagination:any, filters:Object, sorter:Object):void
   searchParams():Object
-  renderSearchBar()
+  renderSearchBar():void
 }

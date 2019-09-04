@@ -1,11 +1,11 @@
-import Vue from 'vue'
 import VPage from '../Page/Page.vue'
+import {URLSearchParams} from "url"
+import IList from './IList';
 
 export default class VList extends VPage implements IList{
   onSelectChange(selectRowKey: String[], selectedRows: Object): void {
     throw new Error("Method not implemented.");
-  }    
-  isSelectMultiple(): Boolean {
+  }  isSelectMultiple(): Boolean {
     throw new Error("Method not implemented.");
   }
   isSelectSingle(): Boolean {
@@ -35,16 +35,13 @@ export default class VList extends VPage implements IList{
   handleAddRoute(): void {
     throw new Error("Method not implemented.");
   }
-  handleEditRoute(id: string | number): void {
+  handleEditRoute(id: string): void {
     throw new Error("Method not implemented.");
   }
-  handleDetailRoute(id: string | number): void {
+  handleDetailRoute(id: string): void {
     throw new Error("Method not implemented.");
   }
-  handleBackRoute(): void{
-    
-  };
-  handleDeleteRoute(id: string | number): void {
+  handleBackRoute(): void {
     throw new Error("Method not implemented.");
   }
   handleFilter(value: Object): void {
@@ -56,7 +53,9 @@ export default class VList extends VPage implements IList{
   searchParams(): Object {
     throw new Error("Method not implemented.");
   }
-  renderSearchBar() {
-      throw new Error("Method not implemented.");
+  renderSearchBar(): void {
+    throw new Error("Method not implemented.");
   }
+
+ 
 }

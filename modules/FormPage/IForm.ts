@@ -1,5 +1,5 @@
 
-interface IForm extends IPage{
-  saveFormRef(form):void
-  onSubmit(actionType):void
+export default interface IForm{
+  saveFormRef(form:any):void
+  onSubmit(actionType:string):void
 }

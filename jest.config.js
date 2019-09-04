@@ -30,7 +30,11 @@ module.exports = {
 
   ],
   // "snapshotSerializers": ["enzyme-to-json/serializer"],
-  moduleFileExtensions: ['', 'json', 'js', 'jsx', 'less'], //测试模块中用到的文件的后缀名配置
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest'
+  },
+  moduleFileExtensions: ['','ts','tsx','json', 'js', 'jsx', 'less'], //测试模块中用到的文件的后缀名配置
   modulePaths: ['<rootDir>/src'],
   moduleNameMapper: {  //与测试无关的资源文件同意mock 掉，这样在import 的时候就不会真的引入这些文件
     '^import?': '<rootDir>/build/jestImportMock.js',
@@ -39,7 +43,6 @@ module.exports = {
     '\\.(css|less|gif|jpg|jpeg|png)$': '<rootDir>/build/jestStyleMock.js',
   },
 //  setupFiles: ['<rootDir>/test/setup.js'], //给每个测试文件添加额外的配置
-
   transformIgnorePatterns: [ //测试过程不改变满足配置的文件
     '<rootDir>/node_modules/(?!(react-aaui|tempest\\.js)/)',
     '<rootDir>/node_modules/(?!lodash-es)/',

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import Page from '../index'
+import Page from '../Page.react'
 
 
 describe('ListPage shallow render', () => {
@@ -72,11 +72,7 @@ describe('ListPage shallow render', () => {
   })
 
   it("page method render()",(done)=>{
-    expect(wrapper.instance().render()).toBe(undefined)
+    expect(wrapper.instance().render()).toBe(null)
     done()
   })
-
-
-
-
 })

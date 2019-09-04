@@ -1,10 +1,36 @@
-import RPage from '../Page/Page.react'
+import RPage, { IPageProps } from '../Page/Page.react'
+import { URLSearchParams } from 'url';
+import IList from './IList';
+
+const defaultRListProps={
+  actions:{},
+  item:{},
+  match: {},
+  history:{},
+  location:{},
+  items:[],
+  reducer:{}
+}
+
+interface RListState{
+  selectedRows:Array<object>
+  selectedRowKeys:Array<string>
+}
+
+interface RListProps extends IPageProps{
+  actions:any,
+  item:object,
+  history:any,
+  location:any,
+  reducer:any,
+  items:Array<object>
+}
 
 export default class RList extends RPage implements IList{
-  // private props:Object
-  private state:Object
-  constructor(props) {
-    super();
+  public state:RListState
+  public props:RListProps = defaultRListProps
+  constructor(props:any) {
+    super(props);
     this.state = {
       selectedRows: [],
       selectedRowKeys: []
@@ -14,7 +40,7 @@ export default class RList extends RPage implements IList{
    * 合并表格配置信息 （此方法仅为浅合并，深度合并暂未支持）
    * @param {object} config 表格配置信息
    */
-  mergeTableConfig(config){
+  mergeTableConfig(config:any){
     return Object.assign({
       size:'small',
       pagination:{
@@ -39,7 +65,7 @@ export default class RList extends RPage implements IList{
    * 组件开始请求获取数据
    */
   componentWillMount() {
-    let {actions} = this.props;
+    // let {actions} = this.props;
     // actions.listAction();
   }
 
@@ -50,7 +76,7 @@ export default class RList extends RPage implements IList{
    * @param {Array} selectedRows    已选择的列表项数组
    * @param {object} selectedRows[].index 选择的单个列表项
    */
-  onSelectChange(selectedRowKeys, selectedRows) {
+  onSelectChange(selectedRowKeys:Array<string>, selectedRows:Array<object>) {
     this.setState({selectedRowKeys, selectedRows});
   }
   /*
@@ -143,8 +169,8 @@ export default class RList extends RPage implements IList{
    * 编辑路由监听
    * @param  {key} id description:
    */
-  handleEditRoute(id) {
-    let key = id || this.getSelectKeys()
+  handleEditRoute(id:string) {
+    let key = id || this.getSelectKeys()[0]
     this.goEdit(key)
   }
 
@@ -152,8 +178,8 @@ export default class RList extends RPage implements IList{
    * 编辑路由监听
    * @param  {key} id 目标路由
    */
-  handleDetailRoute(id) {
-    let key = id || this.getSelectKeys()
+  handleDetailRoute(id:string) {
+    let key = id || this.getSelectKeys()[0]
     this.goDetail(key)
   }
 
@@ -167,9 +193,9 @@ export default class RList extends RPage implements IList{
    * 删除路由监听
    * @param  {rowskey} id description:
    */
-  handleDeleteRoute(id) {
+  handleDeleteRoute(id:string) {
     let {actions} = this.props
-    let key = id || this.getSelectKeys()
+    let key = id || this.getSelectKeys()[0]
     actions.deleteRoute(key)
   }
 
@@ -177,7 +203,7 @@ export default class RList extends RPage implements IList{
    * 监听过滤方法，即搜索提交
    * @param  {object} value 过滤数据条件对象
    */
-  handleFilter(value) {
+  handleFilter(value:any) {
     let {actions} = this.props
     this.clearSelectRows()
     actions.fetchPage(value)
@@ -189,8 +215,8 @@ export default class RList extends RPage implements IList{
    * @param  {unknown} filters    description:
    * @param  {object} sorter     description:
    */
-  onChange(pagination, filters, sorter) {
-    let {reducer}=this.props
+  onChange(pagination:any, filters:any, sorter:any) {
+    // let {reducer}=this.props
     // this.querys()
     var object=Object.assign({},this.searchParams(),pagination,sorter)
     this.handleFilter(object);
@@ -201,7 +227,7 @@ export default class RList extends RPage implements IList{
    * @returns {object} 查询条件
    */
   searchParams(){
-    const  {querys} = this.props
+    // const  {querys} = this.props
     // console.info("override searchPrams method!")
     return {}
   }

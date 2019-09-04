@@ -1,4 +1,5 @@
 import VPage from "../Page/Page.vue";
+import IForm from "./IForm";
 
 export default class VForm extends VPage implements IForm{
   saveFormRef(form: any): void {

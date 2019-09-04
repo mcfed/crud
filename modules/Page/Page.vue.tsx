@@ -1,26 +1,27 @@
 import Vue from 'vue'
 
-
 export default class VPage extends Vue implements IPage{
-  goBack() {
+  goBack(): void {
     throw new Error("Method not implemented.");
-  }    
-  goAdd() {
-    throw new Error("Method not implemented.");
-  }
-  goEdit(route: any) {
+  }  goAdd(): void {
     throw new Error("Method not implemented.");
   }
-  goList(route: any) {
+  goEdit(route: string): void {
     throw new Error("Method not implemented.");
   }
-  goDetail(route: any) {
+  goList(route: string): void {
     throw new Error("Method not implemented.");
   }
-  goRoutes(route: any) {
+  goDetail(route: string): void {
     throw new Error("Method not implemented.");
   }
-  render() {
+  goRoutes(route: string): void {
     throw new Error("Method not implemented.");
   }
+  render(): void {
+    throw new Error("Method not implemented.");
+  }
+
+ 
+
 }

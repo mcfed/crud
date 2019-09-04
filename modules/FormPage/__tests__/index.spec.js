@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import FormPage from '../index'
+import FormPage from '../Form.react'
 
 
 
