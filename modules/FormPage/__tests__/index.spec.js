@@ -2,9 +2,13 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import FormPage from '../Form.react'
+import RForm from '../Form.react';
 
-
+class FormPage extends RForm{
+  render(){
+    return null
+  }
+}
 
 describe('FormPage shallow render', () => {
   const setup = () => {
@@ -18,7 +22,7 @@ describe('FormPage shallow render', () => {
 
     // 通过 enzyme 提供的 shallow(浅渲染) 创建组件
     const wrapper = shallow(
-      <FormPage {...props} />
+      <FormPage {...props} ></FormPage>
     );
 
     return {
@@ -29,7 +33,7 @@ describe('FormPage shallow render', () => {
 
   const { wrapper, props } = setup();
   it('FormPage render initial', (done) => {
-    expect(wrapper.instance().render()).toBe(undefined)
+    expect(wrapper.instance().render()).toBe(null)
     done()
   })
 

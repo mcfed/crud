@@ -1,9 +1,13 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import Page from '../Page.react'
+import RPage from '../Page.react'
 
-
+class Page extends RPage{
+  render(){
+    return null
+  }
+}
 describe('ListPage shallow render', () => {
   const setup = () => {
     // 模拟 props

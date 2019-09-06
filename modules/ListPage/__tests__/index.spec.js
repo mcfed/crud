@@ -1,8 +1,45 @@
 
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
-import ListPage from '../List.react'
+import RList from '../List.react'
 
+class ListPage extends RList {
+
+  mergeTableConfig(config){
+    return Object.assign({
+      size:'small',
+      pagination:{
+          showQuickJumper:true,
+          showSizeChanger:true,
+          pageSizeOptions:['10','20','50','100'],
+          size:"small",
+          // showTotal:this.showTotal(this),
+      },
+      style:{
+        width:'100%'
+      },
+    },config,config.rowSelection===null?{}:{
+      rowSelection:{
+        onChange: this.onSelectChange.bind(this),
+        selectedRowKeys:this.state.selectedRowKeys,
+        ...config.rowSelection
+      }
+    })
+  }
+  handleFilter(value) {
+    let {actions} = this.props
+    this.clearSelectRows()
+    actions.fetchPage(value)
+  }
+  searchParams(){
+    // const  {querys} = this.props
+    // console.info("override searchPrams method!")
+    return {}
+  }
+  render(){
+    return null
+  }
+}
 
 describe('ListPage shallow render', () => {
   const setup = (props) => {

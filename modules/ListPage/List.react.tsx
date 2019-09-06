@@ -1,6 +1,7 @@
 import RPage, { IPageProps } from '../Page/Page.react'
 import { URLSearchParams } from 'url';
 import IList from './IList';
+import { ReactNode } from 'react';
 
 const defaultRListProps={
   actions:{},
@@ -10,6 +11,11 @@ const defaultRListProps={
   location:{},
   items:[],
   reducer:{}
+}
+
+const defaultRListState={
+  selectedRows: [],
+  selectedRowKeys: []
 }
 
 interface RListState{
@@ -26,48 +32,29 @@ interface RListProps extends IPageProps{
   items:Array<object>
 }
 
-export default class RList extends RPage implements IList{
-  public state:RListState
+export default abstract class RList extends RPage implements IList{
+  
+  public state:RListState=defaultRListState
   public props:RListProps = defaultRListProps
-  constructor(props:any) {
-    super(props);
-    this.state = {
-      selectedRows: [],
-      selectedRowKeys: []
-    };
-  }
+
+  /**
+   * 获取查询条件参数
+   * @returns {object} 查询条件
+   */
+  abstract searchParams():Object
+
+  /**
+   * 监听过滤方法，即搜索提交
+   * @param  {object} value 过滤数据条件对象
+   */
+  abstract handleFilter(value:any):void
+
+
   /**
    * 合并表格配置信息 （此方法仅为浅合并，深度合并暂未支持）
    * @param {object} config 表格配置信息
    */
-  mergeTableConfig(config:any){
-    return Object.assign({
-      size:'small',
-      pagination:{
-          showQuickJumper:true,
-          showSizeChanger:true,
-          pageSizeOptions:['10','20','50','100'],
-          size:"small",
-          // showTotal:this.showTotal(this),
-      },
-      style:{
-        width:'100%'
-      },
-    },config,config.rowSelection===null?{}:{
-      rowSelection:{
-        onChange: this.onSelectChange.bind(this),
-        selectedRowKeys:this.state.selectedRowKeys,
-        ...config.rowSelection
-      }
-    })
-  }
-  /**
-   * 组件开始请求获取数据
-   */
-  componentWillMount() {
-    // let {actions} = this.props;
-    // actions.listAction();
-  }
+  abstract mergeTableConfig(config:any):Object
 
   /**
    * 选择的列表项监听
@@ -155,7 +142,7 @@ export default class RList extends RPage implements IList{
    * 清空已选列清数据记录
    */
   clearSelectRows(){
-      this.setState({selectedRowKeys:[], selectedRows:[]});
+    this.setState({selectedRowKeys:[], selectedRows:[]});
   }
 
   /**
@@ -189,6 +176,7 @@ export default class RList extends RPage implements IList{
   handleBackRoute() {
     this.goBack()
   }
+
   /**
    * 删除路由监听
    * @param  {rowskey} id description:
@@ -197,16 +185,6 @@ export default class RList extends RPage implements IList{
     let {actions} = this.props
     let key = id || this.getSelectKeys()[0]
     actions.deleteRoute(key)
-  }
-
-  /**
-   * 监听过滤方法，即搜索提交
-   * @param  {object} value 过滤数据条件对象
-   */
-  handleFilter(value:any) {
-    let {actions} = this.props
-    this.clearSelectRows()
-    actions.fetchPage(value)
   }
 
   /**
@@ -223,23 +201,10 @@ export default class RList extends RPage implements IList{
   }
 
   /**
-   * 获取查询条件参数
-   * @returns {object} 查询条件
-   */
-  searchParams(){
-    // const  {querys} = this.props
-    // console.info("override searchPrams method!")
-    return {}
-  }
-
-  /**
    * 渲染搜索组件
    * @returns {null} [description]
    */
-  renderSearchBar() {
-    return (null)
-  }
-  render(){
+  renderSearchBar():ReactNode {
     return (null)
   }
 }

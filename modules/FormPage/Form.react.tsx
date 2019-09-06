@@ -1,17 +1,24 @@
-import RPage, { IPageProps } from '../Page/Page.react'
+import RPage, { IPageProps,IPageState } from '../Page/Page.react'
 import IForm from './IForm';
+import { ReactNode } from 'react';
 
-export default class RForm extends RPage implements IForm{
+
+interface RFormProps extends IPageProps{
+  children:ReactNode
   form:any
+}
+
+export default abstract class RForm extends RPage implements IForm{
+  form:any
+  // props:RFormProps
   /**
    * 记录 form 对象，供于组件内部调用
    * @param {object} form form 对象
    */
 
-  handleSubmit(value:any){
-    
-  }
-  saveFormRef(form:any){
+  abstract handleSubmit(value:any):any
+
+  protected saveFormRef(form:any){
     this.form = form;
   }
   /**
@@ -31,14 +38,5 @@ export default class RForm extends RPage implements IForm{
       this[actionType].apply(this,[this.form.getFieldsValue()])
     }
   }
-  /**
-   * 渲染表单
-   * @returns {object} Desc: Form 子节点
-   */
-  render() {
-    // Normally, just render children
-    return this.props.children;
-  }
-    
 }
 

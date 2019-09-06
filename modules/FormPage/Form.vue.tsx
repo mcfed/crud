@@ -1,10 +1,9 @@
 import VPage from "../Page/Page.vue";
 import IForm from "./IForm";
 
-export default class VForm extends VPage implements IForm{
-  saveFormRef(form: any): void {
+export default abstract class VForm extends VPage implements IForm{
+  onSubmit(actionType: string): void {
     throw new Error("Method not implemented.");
-  }    onSubmit(actionType: any): void {
-    throw new Error("Method not implemented.");
-  }
+  }  
+  abstract handleSubmit(value: any):void 
 }

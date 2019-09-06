@@ -1,5 +1,5 @@
 
 export default interface IForm{
-  saveFormRef(form:any):void
   onSubmit(actionType:string):void
+  handleSubmit(value:any):any
 }

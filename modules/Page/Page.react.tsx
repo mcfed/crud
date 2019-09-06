@@ -27,7 +27,7 @@ export interface IPageState{
 
 }
 
-export default class RPage extends Component<IPageProps,IPageState> implements IPage{
+export default abstract class RPage extends Component<IPageProps,IPageState> implements IPage{
   public props:IPageProps = defaultIPageProps
   public state:IPageState ={}
   /**
@@ -73,8 +73,6 @@ export default class RPage extends Component<IPageProps,IPageState> implements I
     // console.log(route,match.url)
     history.push(`${match.url}/${route}`);
   }
-  render():ReactNode{
-    return null
-  }
+  abstract render():ReactNode
 
 }

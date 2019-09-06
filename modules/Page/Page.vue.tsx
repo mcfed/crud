@@ -1,27 +1,26 @@
-import Vue from 'vue'
+import Vue, { VNode } from 'vue'
+import IPage from './IPage';
 
-export default class VPage extends Vue implements IPage{
+export default abstract class VPage extends Vue implements IPage{
+  protected $router:any
   goBack(): void {
-    throw new Error("Method not implemented.");
-  }  goAdd(): void {
-    throw new Error("Method not implemented.");
+    this.$router.go(-1)
+  }
+  goAdd(): void {
+    this.goRoutes('add')
   }
   goEdit(route: string): void {
-    throw new Error("Method not implemented.");
+    this.goRoutes(`${route}/edit`)
   }
   goList(route: string): void {
-    throw new Error("Method not implemented.");
+    this.goRoutes(`${route}`)
   }
   goDetail(route: string): void {
-    throw new Error("Method not implemented.");
+    this.goRoutes(`${route}`)
   }
   goRoutes(route: string): void {
-    throw new Error("Method not implemented.");
+    const {history,push} = this.$router
+    push([history.current.path,route].join("/"))
   }
-  render(): void {
-    throw new Error("Method not implemented.");
-  }
-
- 
-
+  abstract render():VNode
 }
