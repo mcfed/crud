@@ -32,8 +32,9 @@ interface RListProps extends IPageProps{
   items:Array<object>
 }
 
+/* istanbul ignore next */
 export default abstract class RList extends RPage implements IList{
-  
+
   public state:RListState=defaultRListState
   public props:RListProps = defaultRListProps
 

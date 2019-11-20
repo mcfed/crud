@@ -12,6 +12,8 @@ const input = "./modules/index.ts"
 
 const globals = {
   react: "React",
+  'react-dom':'react-dom',
+  "vue":"vue",
   "prop-types":"PropTypes"
 };
 const external = id => !id.startsWith(".") && !id.startsWith("\/");
@@ -19,7 +21,7 @@ const external = id => !id.startsWith(".") && !id.startsWith("\/");
 export default [
   {
     input,
-    output: {file: `cjs/${pkg.name}.js`, format: 'cjs'},
+    output: {file: `cjs/index.js`, format: 'cjs'},
     external: Object.keys(globals),
     plugins: [
       nodeResolve(),
@@ -31,7 +33,7 @@ export default [
   },
   {
     input,
-    output: {file: `umd/${pkg.name}.js`, format: 'umd', name},
+    output: {file: `umd/index.js`, format: 'umd', name},
     external: Object.keys(globals),
     plugins: [
       nodeResolve(),
