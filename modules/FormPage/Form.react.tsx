@@ -1,14 +1,11 @@
-import RPage, { IPageProps,IPageState } from '../Page/Page.react'
+import RPage from '../Page/Page.react';
 import IForm from './IForm';
-import { ReactNode } from 'react';
+import {IProps, IState, IRFormProps, IRFromState } from 'global';
 
-
-interface RFormProps extends IPageProps{
-  children:ReactNode
-  form:any
-}
-
-export default abstract class RForm extends RPage implements IForm{
+export default abstract class RForm<P extends IProps<IRFormProps>,S extends IState<IRFromState>> extends RPage<P,S> implements IForm{
+  constructor(props:IProps<P>, state:IState<S>){
+    super(props, state);
+  }
   form:any
   // props:RFormProps
   /**
@@ -25,7 +22,7 @@ export default abstract class RForm extends RPage implements IForm{
    * 提交表单信息
    * @param {string} actionType 提交表单的动作类型
    */
-  onSubmit(actionType:string){
+  public onSubmit(actionType:string){
     if(actionType ==='handleSubmit'){
       this.form.validateFieldsAndScroll({force:true},(err:any,values:any) => {
         if (err) {

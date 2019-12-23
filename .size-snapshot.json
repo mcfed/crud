@@ -24,13 +24,13 @@
     "gzipped": 32739
   },
   "cjs/index.js": {
-    "bundled": 12115,
-    "minified": 5733,
-    "gzipped": 1323
+    "bundled": 11521,
+    "minified": 5337,
+    "gzipped": 1217
   },
   "umd/index.js": {
-    "bundled": 13905,
-    "minified": 5549,
-    "gzipped": 1329
+    "bundled": 13199,
+    "minified": 5249,
+    "gzipped": 1240
   }
 }

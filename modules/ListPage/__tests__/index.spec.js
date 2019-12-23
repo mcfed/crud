@@ -2,9 +2,15 @@
 import React from 'react';
 import {shallow,mount,render} from 'enzyme';
 import RList from '../List.react'
-
+const defaultState={
+  selectedRows: [],
+  selectedRowKeys: []
+}
 class ListPage extends RList {
-
+  state = defaultState
+  constructor(props,state=defaultState){
+    super(props,state)
+  }
   mergeTableConfig(config){
     return Object.assign({
       size:'small',

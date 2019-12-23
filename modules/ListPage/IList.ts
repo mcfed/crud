@@ -1,13 +1,14 @@
 import { URLSearchParams } from "url";
+import { PK } from "global";
 
 interface Selectable{
-  onSelectChange(selectRowKey:Array<String>,selectedRows:Object):void
+  onSelectChange(selectRowKey:string[],selectedRows:Object):void
   isSelectMultiple():Boolean
   isSelectSingle():Boolean
   selectMultiple():Boolean
   selectSingle():Boolean
   getSelectLength():Number
-  getSelectKeys():Array<string>
+  getSelectKeys():string[]
   clearSelectRows():void
 }
 

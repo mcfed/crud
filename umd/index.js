@@ -1,8 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('url')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'react', 'url'], factory) :
-    (factory((global.CRUD = {}),global.react,global.url));
-}(this, (function (exports,react,url) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('url'), require('vue')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'react', 'url', 'vue'], factory) :
+    (factory((global.CRUD = {}),global.react,global.url,global.Vue));
+}(this, (function (exports,react,url,Vue) { 'use strict';
+
+    Vue = Vue && Vue.hasOwnProperty('default') ? Vue['default'] : Vue;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -33,23 +35,10 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    var defaultIPageProps = {
-        match: {},
-        actions: {},
-        item: {},
-        history: {},
-        location: {},
-        reducer: {},
-        children: [],
-        items: []
-    };
     var RPage = /** @class */ (function (_super) {
         __extends(RPage, _super);
-        function RPage() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.props = defaultIPageProps;
-            _this.state = {};
-            return _this;
+        function RPage(props, state) {
+            return _super.call(this, props, state) || this;
         }
         /**
          * 返回到上一步路由
@@ -97,26 +86,10 @@
         return RPage;
     }(react.Component));
 
-    var defaultRListProps = {
-        actions: {},
-        item: {},
-        match: {},
-        history: {},
-        location: {},
-        items: [],
-        reducer: {}
-    };
-    var defaultRListState = {
-        selectedRows: [],
-        selectedRowKeys: []
-    };
     var RList = /** @class */ (function (_super) {
         __extends(RList, _super);
-        function RList() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
-            _this.state = defaultRListState;
-            _this.props = defaultRListProps;
-            return _this;
+        function RList(props, state) {
+            return _super.call(this, props, state) || this;
         }
         /**
          * 选择的列表项监听
@@ -129,11 +102,11 @@
             this.setState({ selectedRowKeys: selectedRowKeys, selectedRows: selectedRows });
         };
         /*
-        selectRowShow(reactNode){
-          const {selectedRowKeys}=this.state
-          return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" style={{textAlign:'left'}}><span>已选<span className="countNum">{selectedRowKeys.length}</span>条数据</span>{reactNode}</div>) :null
-        }
-        */
+      selectRowShow(reactNode){
+      const {selectedRowKeys}=this.state
+      return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" style={{textAlign:'left'}}><span>已选<span className="countNum">{selectedRowKeys.length}</span>条数据</span>{reactNode}</div>) :null
+      }
+      */
         /**
          * 判断当前是否多选
          * @returns {boolean} Desc: 是否多选状态
@@ -178,6 +151,7 @@
          * @returns {string} Desc: 返回 keys 数组
          */
         RList.prototype.getSelectKeys = function () {
+            //@ts-ignore
             return this.state.selectedRowKeys;
         };
         /**
@@ -185,6 +159,7 @@
          * @returns {object} Desc: 返回选中记录数据
          */
         RList.prototype.getSelectRows = function () {
+            //@ts-ignore
             return this.state.selectedRows;
         };
         /**
@@ -255,15 +230,15 @@
          * @returns {null} [description]
          */
         RList.prototype.renderSearchBar = function () {
-            return (null);
+            return null;
         };
         return RList;
     }(RPage));
 
     var RForm = /** @class */ (function (_super) {
         __extends(RForm, _super);
-        function RForm() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function RForm(props, state) {
+            return _super.call(this, props, state) || this;
         }
         RForm.prototype.saveFormRef = function (form) {
             this.form = form;
@@ -287,18 +262,115 @@
                 this[actionType].apply(this, [this.form.getFieldsValue()]);
             }
         };
-        /**
-         * 渲染表单
-         * @returns {object} Desc: Form 子节点
-         */
-        RForm.prototype.render = function () {
-            // Normally, just render children
-            //@ts-ignore
-            return this.props.children;
-        };
         return RForm;
     }(RPage));
 
+    var VPage = /** @class */ (function (_super) {
+        __extends(VPage, _super);
+        function VPage() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        VPage.prototype.goBack = function () {
+            this.$router.go(-1);
+        };
+        VPage.prototype.goAdd = function () {
+            this.goRoutes('add');
+        };
+        VPage.prototype.goEdit = function (route) {
+            this.goRoutes(route + "/edit");
+        };
+        VPage.prototype.goList = function (route) {
+            this.goRoutes("" + route);
+        };
+        VPage.prototype.goDetail = function (route) {
+            this.goRoutes("" + route);
+        };
+        VPage.prototype.goRoutes = function (route) {
+            var _a = this.$router, history = _a.history, push = _a.push;
+            push([history.current.path, route].join("/"));
+        };
+        return VPage;
+    }(Vue));
+
+    var VList = /** @class */ (function (_super) {
+        __extends(VList, _super);
+        function VList() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        VList.prototype.onSelectChange = function (selectRowKey, selectedRows) {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.isSelectMultiple = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.isSelectSingle = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.selectMultiple = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.selectSingle = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.getSelectLength = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.getSelectKeys = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.getSelectRows = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.getSearchParams = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.clearSelectRows = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.handleAddRoute = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.handleEditRoute = function (id) {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.handleDetailRoute = function (id) {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.handleBackRoute = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.handleFilter = function (value) {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.onChange = function (pagination, filters, sorter) {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.searchParams = function () {
+            throw new Error("Method not implemented.");
+        };
+        VList.prototype.renderSearchBar = function () {
+            throw new Error("Method not implemented.");
+        };
+        return VList;
+    }(VPage));
+
+    var VForm = /** @class */ (function (_super) {
+        __extends(VForm, _super);
+        function VForm() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        VForm.prototype.onSubmit = function (actionType) {
+            throw new Error("Method not implemented.");
+        };
+        return VForm;
+    }(VPage));
+
+    exports.VListPage = VList;
+    exports.VFormPage = VForm;
+    exports.VViewPage = VPage;
+    exports.RListPage = RList;
+    exports.RFormPage = RForm;
+    exports.RViewPage = RPage;
     exports.ListPage = RList;
     exports.FormPage = RForm;
     exports.ViewPage = RPage;

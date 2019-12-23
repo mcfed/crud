@@ -1,78 +1,59 @@
-import React,{Component, ReactNode} from 'react'
-import IPage from './IPage';
+import React, { Component, ReactNode } from 'react'
+import IPage, { IRouter } from './IPage';
+import { IProps, IState, IPageProps, IPageState } from 'global';
 
-const defaultIPageProps={
-  match: {},
-  actions:{},
-  item:{},
-  history:{},
-  location:{},
-  reducer:{},
-  children:[],
-  items:[]
-}
+export default abstract class RPage<P extends IProps,S extends IState> extends Component<P,S> implements IPage, IRouter {
 
-export interface IPageProps{
-  match: any;
-  actions:any,
-  item:object,
-  history:any,
-  location:any,
-  reducer:any,
-  // children:any,
-  items:Array<object>
-}
+  constructor(props:P,state:S){
+    super(props,state)
+  }
 
-export interface IPageState{
-
-}
-
-export default abstract class RPage extends Component<IPageProps,IPageState> implements IPage{
-  public props:IPageProps = defaultIPageProps
-  public state:IPageState ={}
   /**
    * 返回到上一步路由
    */
-  goBack():void{
+  public goBack(): void {
     const { history } = this.props;
     history.goBack();
   }
   /**
    * 路由跳转到新增列表项
    */
-  goAdd():void {
+  public goAdd(): void {
     this.goRoutes(`add`);
   }
   /**
    * 路由跳转到列表项修改路由
    * @param {string} route 当前路由
    */
-  goEdit(route:string) :void{
+  goEdit(route: string): void {
     this.goRoutes(`${route}/edit`);
   }
   /**
    * 路由跳转到列表页
    * @param {string} route 目标路由
    */
-  goList(route:string) :void{
+  goList(route: string): void {
     this.goRoutes(`${route}`);
   }
   /**
    * 路由跳转到列表项详情
    * @param {string} route 目标路由
    */
-  goDetail(route:string) :void{
+  goDetail(route: string): void {
     this.goRoutes(`${route}`);
   }
   /**
    * 跳转到指定路由
    * @param {string} route 目标路由
    */
-  goRoutes(route:string) :void{
+  goRoutes(route: string): void {
     const { history, match } = this.props;
     // console.log(route,match.url)
     history.push(`${match.url}/${route}`);
   }
-  abstract render():ReactNode
+
+  abstract compomentWillDidMount():void
+  abstract render(): ReactNode
 
 }
+

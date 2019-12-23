@@ -1,9 +1,5 @@
 export default interface IPage {
   /**
-   * 返回到上一步路由
-   */
-  goBack(): void;
-  /**
    * 路由跳转到新增列表项
    */
   goAdd(): void;
@@ -22,14 +18,23 @@ export default interface IPage {
    * @param {string} route 目标路由
    */
   goDetail(route: string): void;
-  /**
-   * 跳转到指定路由
-   * @param {string} route 目标路由
-   */
-  goRoutes(route: string): void;
 
   /**
    * @returns {undefined} undefined
    */
   render(): void;
 }
+
+export interface IRouter {
+
+  /**
+   * 跳转到指定路由
+   * @param {string} route 目标路由
+   */
+  goRoutes(route: string): void;
+  /**
+   * 返回到上一步路由
+   */
+  goBack(): void;
+}
+
