@@ -1,6 +1,6 @@
 {
   "name": "@mcf/crud",
-  "version": "0.2.1",
+  "version": "0.2.0-beta1",
   "description": "@mcf for crud",
   "module": "cjs/index.js",
   "main": "umd/index.js",
@@ -20,7 +20,7 @@
     "type": "git",
     "url": "http://git.mchz.com.cn/mcf/crud.git"
   },
-  "types": "types/global.d.ts",
+  "typings": "types/global.d.ts",
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
