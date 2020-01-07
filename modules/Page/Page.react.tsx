@@ -1,18 +1,20 @@
-import React, { Component, ReactNode } from 'react'
-import IPage, { IRouter } from './IPage';
-import { IProps, IState, IPageProps, IPageState } from 'global';
+import React, {Component, ReactNode} from 'react';
+import IPage, {IRouter} from './IPage';
+import {IProps, IState, IPageProps, IPageState} from '../../types/global.d';
+import Model from 'redux-orm';
 
-export default abstract class RPage<P extends IProps,S extends IState> extends Component<P,S> implements IPage, IRouter {
-
-  constructor(props:P,state:S){
-    super(props,state)
+export default abstract class RPage<P extends IProps, S extends IState>
+  extends Component<P, S>
+  implements IPage, IRouter {
+  constructor(props: P, state: S) {
+    super(props, state);
   }
 
   /**
    * 返回到上一步路由
    */
   public goBack(): void {
-    const { history } = this.props;
+    const {history} = this.props;
     history.goBack();
   }
   /**
@@ -47,13 +49,11 @@ export default abstract class RPage<P extends IProps,S extends IState> extends C
    * @param {string} route 目标路由
    */
   goRoutes(route: string): void {
-    const { history, match } = this.props;
+    const {history, match} = this.props;
     // console.log(route,match.url)
     history.push(`${match.url}/${route}`);
   }
 
-  abstract compomentWillDidMount():void
-  abstract render(): ReactNode
-
+  abstract componentDidMount(): void;
+  abstract render(): ReactNode;
 }
-

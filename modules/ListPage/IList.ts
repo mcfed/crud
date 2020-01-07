@@ -1,5 +1,5 @@
 import { URLSearchParams } from "url";
-import { PK } from "global";
+import { PK, IParams } from "global";
 
 interface Selectable{
   onSelectChange(selectRowKey:string[],selectedRows:Object):void
@@ -18,12 +18,12 @@ interface Tableable{
 }
 
 
-export default interface IList extends Selectable,Tableable{
+export default interface IList<M> extends Selectable,Tableable{
   getSearchParams():URLSearchParams
   handleAddRoute():void
   handleEditRoute(id:string):void
   handleDetailRoute(id:string):void
   handleBackRoute():void
-  searchParams():Object
+  searchParams(): IParams<M>
   renderSearchBar():void
 }

@@ -1,13 +1,24 @@
-import { ReactNode } from 'react';
-import { URLSearchParams } from 'url';
+import {ReactNode} from 'react';
+import {URLSearchParams} from 'url';
 import RPage from '../Page/Page.react';
 import IList from './IList';
-import { IProps, IRListProps, IRListState, IState, IRFromState, IRFormProps, PK } from 'global';
+import {
+  IProps,
+  IRListProps,
+  IRListState,
+  IState,
+  IRFormState,
+  IRFormProps,
+  PK,
+  IParams
+} from '../../types/global.d';
+import Model, {SessionBoundModel} from 'redux-orm';
 
 export default abstract class RList<
-  P extends IProps<IRListProps>,
-  S extends IState<IRListState>
-  > extends RPage<P, S> implements IList {
+  P extends IProps<IRListProps<M>>,
+  S extends IState<IRListState<M>>,
+  M extends Model
+> extends RPage<P, S> implements IList<M> {
   constructor(props: P, state: S) {
     super(props, state);
   }
@@ -16,7 +27,7 @@ export default abstract class RList<
    * 获取查询条件参数
    * @returns {object} 查询条件
    */
-  abstract searchParams(): Object;
+  abstract searchParams(): IParams<M>;
 
   /**
    * 监听过滤方法，即搜索提交
@@ -39,9 +50,9 @@ export default abstract class RList<
    */
   onSelectChange(
     selectedRowKeys: string[],
-    selectedRows: Array<object>
+    selectedRows: SessionBoundModel<M>[]
   ) {
-    this.setState({ selectedRowKeys, selectedRows });
+    this.setState({selectedRowKeys, selectedRows});
   }
   /*
 selectRowShow(reactNode){
@@ -95,7 +106,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 获取选中列表的RowKeys
    * @returns {string} Desc: 返回 keys 数组
    */
-  getSelectKeys():string[] {
+  getSelectKeys(): string[] {
     //@ts-ignore
     return this.state.selectedRowKeys;
   }
@@ -114,7 +125,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    */
   getSearchParams() {
     const {
-      location: { search }
+      location: {search}
     } = this.props;
     return new URLSearchParams(search.substring(1));
   }
@@ -123,7 +134,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 清空已选列清数据记录
    */
   clearSelectRows() {
-    this.setState({ selectedRowKeys: [], selectedRows: [] });
+    this.setState({selectedRowKeys: [], selectedRows: []});
   }
 
   /**
@@ -163,7 +174,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * @param  {rowskey} id description:
    */
   handleDeleteRoute(id: string) {
-    let { actions } = this.props;
+    let {actions} = this.props;
     let key = id || this.getSelectKeys()[0];
     actions.deleteRoute(key);
   }
@@ -177,12 +188,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
   onChange(pagination: any, filters: any, sorter: any) {
     // let {reducer}=this.props
     // this.querys()
-    var object = Object.assign(
-      {},
-      this.searchParams(),
-      pagination,
-      sorter
-    );
+    var object = Object.assign({}, this.searchParams(), pagination, sorter);
     this.handleFilter(object);
   }
 
@@ -194,4 +200,3 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
     return null;
   }
 }
-

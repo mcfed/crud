@@ -2,7 +2,7 @@ import RForm from "./Form.react";
 import { ReactNode } from "react";
 
 import { Model, QuerySet, SessionBoundModel, attr } from "redux-orm";
-import { IProps, IState, IRFormProps, IRFromState, IRListState, IRListProps, Actions } from "global";
+import { IProps, IState, IRFormProps,  IRListState, IRListProps, Actions, IRFormState } from "../../types/global.d";
 import { AnyModel } from "redux-orm/Model";
 import RList from "../ListPage/List.react";
 
@@ -12,23 +12,23 @@ class Abc extends Model {
   c: string = "";
 }
 
-// Abc.create({id:"1"})
-
-
-interface InstanceProp<M extends AnyModel> extends IRFormProps {
+interface InstanceProp<M extends Abc> extends IRFormProps<M> {
   actions: Actions
   name: {
     a: string,
     b: number
   }
-  item: SessionBoundModel<M>,
 }
 
-interface InstanceState extends IRFromState {
+interface InstanceState<M extends Abc> extends IRFormState<M> {
   value: number
 }
 
-class Instance<P extends IProps<InstanceProp<Abc>>, S extends IState<InstanceState>> extends RForm<P, S> {
+class Instance<P extends IProps<InstanceProp<M>>, S extends IState<InstanceState<M>>,M extends Abc> extends RForm<P, S,M> {
+  componentDidMount(): void {
+    throw new Error("Method not implemented.");
+  }
+
   handleSubmit(value: any) {
     // this.setState({
     //   value:"1"
@@ -38,7 +38,6 @@ class Instance<P extends IProps<InstanceProp<Abc>>, S extends IState<InstanceSta
   render(): ReactNode {
     const { item } = this.props;
     item.delete()
-    this.props.name.b
     // item.getId()
     // this.setState({
     //   value:1
@@ -51,28 +50,25 @@ class Instance<P extends IProps<InstanceProp<Abc>>, S extends IState<InstanceSta
 }
 
 
-interface InstanceListProp<M extends AnyModel> extends IRListProps {
-  actions: Actions,
-  items: SessionBoundModel<M>[],
+interface InstanceListProp<M extends Abc> extends IRListProps<M> {
 }
 
-interface InstanceListState<M extends AnyModel> extends IRListState {
-
-  selectedRows: Array<SessionBoundModel<M>>;
-  value: number
+interface InstanceListState<M extends Abc> extends IRListState<M> {
 }
 
-class InstanceList< P extends IProps<InstanceListProp<Abc>>, S extends IState<InstanceListState<Abc>> >
-  extends RList<P, S>{
+class InstanceList<P extends IProps<InstanceListProp<M>>, S extends IState<InstanceListState<M>>,M extends Abc >
+  extends RList<P, S,M>{
+  componentDidMount(): void {
+    throw new Error("Method not implemented.");
+  }
 
-  searchParams(): Object {
+  searchParams(): IProps<M> {
     // this.props.match.params
     this.state.selectedRows.map((it:Abc)=>it.b)
     this.props.items.map((it: Abc) => it.b)
     throw new Error("Method not implemented.");
   }
   handleFilter(value: any): void {
-    // this.props.match.params
     throw new Error("Method not implemented.");
   }
   mergeTableConfig(config: any): Object {

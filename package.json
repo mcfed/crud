@@ -63,6 +63,7 @@
     "vue": "^2.6.10"
   },
   "dependencies": {
+    "@mcf/types": "^0.0.1-beta1",
     "react": "^16.0.0"
   }
 }
