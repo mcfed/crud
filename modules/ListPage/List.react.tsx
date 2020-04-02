@@ -4,20 +4,21 @@ import RPage from '../Page/Page.react';
 import IList from './IList';
 import {
   IProps,
-  IRListProps,
-  IRListState,
   IState,
-  IRFormState,
-  IRFormProps,
   PK,
   IParams
-} from '../../types/global.d';
+} from '../Page/IPage';
+import {
+  IRListProps,
+  IRListState,
+} from '../ListPage/IList'
 import Model, {SessionBoundModel} from 'redux-orm';
+import { AnyModel } from 'redux-orm/Model';
 
 export default abstract class RList<
   P extends IProps<IRListProps<M>>,
   S extends IState<IRListState<M>>,
-  M extends Model
+  M extends AnyModel
 > extends RPage<P, S> implements IList<M> {
   constructor(props: P, state: S) {
     super(props, state);
@@ -51,7 +52,7 @@ export default abstract class RList<
   onSelectChange(
     selectedRowKeys: string[],
     selectedRows: SessionBoundModel<M>[]
-  ) {
+  ):void {
     this.setState({selectedRowKeys, selectedRows});
   }
   /*
@@ -65,7 +66,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 判断当前是否多选
    * @returns {boolean} Desc: 是否多选状态
    */
-  isSelectMultiple() {
+  isSelectMultiple():boolean {
     return this.getSelectLength() >= 1;
   }
 
@@ -73,7 +74,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 判断当前是否单选
    * @returns {boolean} Desc: 是否为单选状态
    */
-  isSelectSingle() {
+  isSelectSingle():boolean {
     return this.getSelectLength() == 1;
   }
 
@@ -83,7 +84,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 建议使用isSelectMultiple
    * @returns {boolean} Desc: 返回是否多选状态
    */
-  selectMultiple() {
+  selectMultiple():boolean {
     return this.getSelectLength() <= 0;
   }
   /**
@@ -92,14 +93,14 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 建议使用isSelectSingle
    * @returns {boolean} Desc: 返回当前是否单选状态
    */
-  selectSingle() {
+  selectSingle():boolean {
     return this.getSelectLength() != 1;
   }
   /**
    * 获取当前列表选中记录数量
    * @returns {number} Desc: 返回选中记录数量
    */
-  getSelectLength() {
+  getSelectLength():number {
     return this.getSelectKeys().length;
   }
   /**
@@ -107,7 +108,6 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * @returns {string} Desc: 返回 keys 数组
    */
   getSelectKeys(): string[] {
-    //@ts-ignore
     return this.state.selectedRowKeys;
   }
 
@@ -115,15 +115,14 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 获取选中列表行数据
    * @returns {object} Desc: 返回选中记录数据
    */
-  getSelectRows() {
-    //@ts-ignore
+  getSelectRows():SessionBoundModel<M>[] {
     return this.state.selectedRows;
   }
   /**
    * 获取路径参数对象
    * @returns {URLSearchParams} Desc: URLSearchParams 实例对象
    */
-  getSearchParams() {
+  getSearchParams():URLSearchParams {
     const {
       location: {search}
     } = this.props;
@@ -133,14 +132,14 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
   /**
    * 清空已选列清数据记录
    */
-  clearSelectRows() {
+  clearSelectRows():void {
     this.setState({selectedRowKeys: [], selectedRows: []});
   }
 
   /**
    * 新增路由监听
    */
-  handleAddRoute() {
+  handleAddRoute():void {
     this.goAdd();
   }
 
@@ -148,7 +147,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 编辑路由监听
    * @param  {key} id description:
    */
-  handleEditRoute(id: string) {
+  handleEditRoute(id: string):void {
     let key = id || this.getSelectKeys()[0];
     this.goEdit(key);
   }
@@ -157,7 +156,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 编辑路由监听
    * @param  {key} id 目标路由
    */
-  handleDetailRoute(id: string) {
+  handleDetailRoute(id: string):void {
     let key = id || this.getSelectKeys()[0];
     this.goDetail(key);
   }
@@ -165,7 +164,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
   /**
    * 取消或回退路由监听
    */
-  handleBackRoute() {
+  handleBackRoute():void {
     this.goBack();
   }
 
@@ -173,7 +172,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 删除路由监听
    * @param  {rowskey} id description:
    */
-  handleDeleteRoute(id: string) {
+  handleDeleteRoute(id: string):void {
     let {actions} = this.props;
     let key = id || this.getSelectKeys()[0];
     actions.deleteRoute(key);
@@ -185,7 +184,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * @param  {unknown} filters    description:
    * @param  {object} sorter     description:
    */
-  onChange(pagination: any, filters: any, sorter: any) {
+  onChange(pagination: any, filters: any, sorter: any):void {
     // let {reducer}=this.props
     // this.querys()
     var object = Object.assign({}, this.searchParams(), pagination, sorter);

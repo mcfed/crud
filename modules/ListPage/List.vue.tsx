@@ -2,7 +2,7 @@ import VPage from '../Page/Page.vue'
 import {URLSearchParams} from "url"
 import IList from './IList';
 
-export default abstract class VList extends VPage implements IList{
+export default abstract class VList<M extends {}> extends VPage implements IList<M>{
   onSelectChange(selectRowKey: String[], selectedRows: Object): void {
     throw new Error("Method not implemented.");
   }  isSelectMultiple(): Boolean {
@@ -50,12 +50,12 @@ export default abstract class VList extends VPage implements IList{
   onChange(pagination: any, filters: Object, sorter: Object): void {
     throw new Error("Method not implemented.");
   }
-  searchParams(): Object {
+  searchParams(): M {
     throw new Error("Method not implemented.");
   }
   renderSearchBar(): void {
     throw new Error("Method not implemented.");
   }
 
- 
+
 }

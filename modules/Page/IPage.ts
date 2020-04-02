@@ -1,3 +1,43 @@
+import {Location, History} from 'history';
+import {match} from 'react-router';
+import Model from 'redux-orm';
+import { AnyModel } from 'redux-orm/Model';
+
+export type IValues = {
+  [extraProps: string]: any
+}
+
+export interface IActions {
+  [extraProps: string]: Function
+}
+
+export type PK = number | string
+
+
+export type IProps<Props = IPageProps<Model>> = {
+  [P in keyof Props]: Props[P];
+};
+
+export type IState<State = IPageState<Model>> = {
+  [S in keyof State]: State[S];
+};
+
+export type IParams<Params = {}> = {
+  [S in keyof Params]?: Params[S];
+};
+
+export interface IPageProps<M> {
+  history: History;
+  match: match<M>;
+  location: Location;
+  locale: Function;
+  querys: Function;
+  spins: Function;
+}
+
+export interface IPageState<M> {}
+
+
 export default interface IPage {
   /**
    * 路由跳转到新增列表项

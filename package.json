@@ -1,9 +1,9 @@
 {
   "name": "@mcf/crud",
-  "version": "0.2.0-beta2",
+  "version": "0.3.0",
   "description": "@mcf for crud",
-  "module": "cjs/index.js",
-  "main": "umd/index.js",
+  "module": "dist/index.js",
+  "main": "modules/index.js",
   "scripts": {
     "test": "jest",
     "dev": "rollup -c --watch",
@@ -20,7 +20,7 @@
     "type": "git",
     "url": "http://git.mchz.com.cn/mcf/crud.git"
   },
-  "typings": "types/global.d.ts",
+  "typings": "dist/index.d.ts",
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
@@ -63,7 +63,6 @@
     "vue": "^2.6.10"
   },
   "dependencies": {
-    "@mcf/types": "^0.0.1-beta1",
     "react": "^16.0.0"
   }
 }

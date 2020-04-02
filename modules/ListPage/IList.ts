@@ -1,5 +1,7 @@
 import { URLSearchParams } from "url";
-import { PK, IParams } from "global";
+import {PK, IParams, IPageState, IPageProps, IActions} from '../Page/IPage';
+import Model, { AnyModel, SessionBoundModel } from "redux-orm/Model";
+import { match } from "react-router";
 
 interface Selectable{
   onSelectChange(selectRowKey:string[],selectedRows:Object):void
@@ -26,4 +28,15 @@ export default interface IList<M> extends Selectable,Tableable{
   handleBackRoute():void
   searchParams(): IParams<M>
   renderSearchBar():void
+}
+
+export interface IRListState<M extends Model> extends IPageState<M> {
+  selectedRows: SessionBoundModel<M>[];
+  selectedRowKeys: string[];
+}
+
+export interface IRListProps<M extends Model> extends IPageProps<M> {
+  actions: IActions;
+  match: match<any>;
+  items: SessionBoundModel<M>[];
 }

@@ -2,9 +2,13 @@ import RForm from "./Form.react";
 import { ReactNode } from "react";
 
 import { Model, QuerySet, SessionBoundModel, attr } from "redux-orm";
-import { IProps, IState, IRFormProps,  IRListState, IRListProps, Actions, IRFormState } from "../../types/global.d";
+import { IProps, IState,  IActions } from "../Page/IPage";
+import { IRListState, IRListProps } from "../ListPage/IList";
+import { IRFormProps,  IRFormState } from "../FormPage/IForm";
 import { AnyModel } from "redux-orm/Model";
 import RList from "../ListPage/List.react";
+import { match } from "react-router";
+import { Action } from "history";
 
 class Abc extends Model {
   a: string | any = "";
@@ -12,8 +16,68 @@ class Abc extends Model {
   c: string = "";
 }
 
-interface InstanceProp<M extends Abc> extends IRFormProps<M> {
-  actions: Actions
+class AbcActions {
+  add(action:any){
+
+  }
+  sub(action:any){}
+}
+const LOCALE={
+  'delete.confirm': {
+    id: 'shieldrevert.buttons.delete.confirm',
+    defaultMessage: '是否确定删除?'
+  },
+  'objName.label': {
+    id: 'shieldrevert.field.objName.label',
+    defaultMessage: '数据库名'
+  },
+
+  'activity.label': {
+    id: 'shieldrevert.field.activity.label',
+    defaultMessage: '操作类型'
+  },
+
+  'actObjName.label': {
+    id: 'shieldrevert.field.actObjName.label',
+    defaultMessage: '对象名称'
+  },
+
+  'hasRevert.label': {
+    id: 'shieldrevert.hasRevert.label',
+    defaultMessage: '已恢复'
+  }
+}
+
+interface Locale {
+  [extraProps: string]: any
+}
+
+const defaultProps = {
+  actions: new AbcActions()
+}
+
+function querysFn(action:Function):string{
+  return "abc"
+}
+
+function spinsFn(action:Function):boolean{
+  return false
+}
+
+function localeFn(key: Locale): string {
+  return 'abdef';
+}
+
+interface ContainerProps{
+  message:Locale
+  locale: Function
+  querys: Function
+  spins: Function
+  actions:IActions
+}
+
+
+interface InstanceProp<M extends Abc> extends IRFormProps<M>,ContainerProps{
   name: {
     a: string,
     b: number
@@ -24,9 +88,18 @@ interface InstanceState<M extends Abc> extends IRFormState<M> {
   value: number
 }
 
-class Instance<P extends IProps<InstanceProp<M>>, S extends IState<InstanceState<M>>,M extends Abc> extends RForm<P, S,M> {
+class Instance<
+  P extends IProps<InstanceProp<M>>,
+  S extends IState<InstanceState<M>>,
+  M extends Abc
+> extends RForm<P, S, M> {
+
   componentDidMount(): void {
-    throw new Error("Method not implemented.");
+    const {actions,querys,spins,locale,message} = this.props
+    querys(actions.add)
+    spins(actions.sub)
+    locale(message["objName.label"]);
+    throw new Error('Method not implemented.');
   }
 
   handleSubmit(value: any) {
@@ -36,16 +109,16 @@ class Instance<P extends IProps<InstanceProp<M>>, S extends IState<InstanceState
     throw new Error('Method not implemented.');
   }
   render(): ReactNode {
-    const { item } = this.props;
-    item.delete()
+    const {item} = this.props;
+    item.delete();
     // item.getId()
     // this.setState({
     //   value:1
     // })
     //item.b
-    this.props.item.b
+    this.props.item.b;
 
-    return null
+    return null;
   }
 }
 

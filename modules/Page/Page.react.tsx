@@ -1,7 +1,5 @@
 import React, {Component, ReactNode} from 'react';
-import IPage, {IRouter} from './IPage';
-import {IProps, IState, IPageProps, IPageState} from '../../types/global.d';
-import Model from 'redux-orm';
+import IPage, {IRouter, IProps, IState} from './IPage';
 
 export default abstract class RPage<P extends IProps, S extends IState>
   extends Component<P, S>
@@ -50,7 +48,6 @@ export default abstract class RPage<P extends IProps, S extends IState>
    */
   goRoutes(route: string): void {
     const {history, match} = this.props;
-    // console.log(route,match.url)
     history.push(`${match.url}/${route}`);
   }
 
