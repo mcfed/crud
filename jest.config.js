@@ -11,13 +11,13 @@ module.exports = {
     },
   },
   notify: true,
-  setupTestFrameworkScriptFile: "<rootDir>/setupTests.js",
+  setupTestFrameworkScriptFile: "<rootDir>/setupTests.ts",
   coveragePathIgnorePatterns: [ //该路径下的测试，忽略在测试覆盖率上
     'build',
     '<rootDir>/src/shared/libs/url/',
   ],
   testURL: "http://localhost/",
-  testRegex: '__tests__/.*\\.js?$', //要测试的文件目录及后缀
+  testRegex: '__tests__/.*\\.ts?$', //要测试的文件目录及后缀
   testPathIgnorePatterns: [ //忽略该路径的文件测试
     '<rootDir>/node_modules/(?!lodash-es)',
     '<rootDir>/build/',
