@@ -2,8 +2,7 @@ import RPage from '../Page/Page.react';
 import IForm from './IForm';
 import {IRFormProps, IRFormState} from '../FormPage/IForm';
 import {IProps, IState} from '../Page/IPage';
-import Model from 'redux-orm';
-import { AnyModel } from 'redux-orm/Model';
+import { AnyModel } from 'redux-orm';
 
 export default abstract class RForm<
   P extends IProps<IRFormProps<M>>,

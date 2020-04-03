@@ -1,67 +1,34 @@
 
-import React from 'react';
-import {shallow,mount,render} from 'enzyme';
-import RList from '../List.react'
-const defaultState={
-  selectedRows: [],
-  selectedRowKeys: []
-}
-class ListPage extends RList {
-  state = defaultState
-  constructor(props,state=defaultState){
-    super(props,state)
-  }
-  mergeTableConfig(config){
-    return Object.assign({
-      size:'small',
-      pagination:{
-          showQuickJumper:true,
-          showSizeChanger:true,
-          pageSizeOptions:['10','20','50','100'],
-          size:"small",
-          // showTotal:this.showTotal(this),
-      },
-      style:{
-        width:'100%'
-      },
-    },config,config.rowSelection===null?{}:{
-      rowSelection:{
-        onChange: this.onSelectChange.bind(this),
-        selectedRowKeys:this.state.selectedRowKeys,
-        ...config.rowSelection
-      }
-    })
-  }
-  handleFilter(value) {
-    let {actions} = this.props
-    this.clearSelectRows()
-    actions.fetchPage(value)
-  }
-  searchParams(){
-    // const  {querys} = this.props
-    // console.info("override searchPrams method!")
-    return {}
-  }
-  render(){
-    return null
-  }
-}
+import React, { ReactNode } from 'react';
+import {shallow,mount,render, ShallowWrapper} from 'enzyme';
+import ListPage from '../List.react';
+import { ListProps,ListState,Model } from './List.view';
+
 
 describe('ListPage shallow render', () => {
-  const setup = (props) => {
-
-    const wrapper = shallow(
-      <ListPage {...props} items={[]} />
-    );
-
-    return {
-      props,
-      wrapper
-    }
-  }
+  const setup = (): {
+    props: object;
+    wrapper: ShallowWrapper;
+    instance: ListPage<ListProps<Model>, ListState<Model>, Model>;
+  } => {
+         const props = {
+           // Jest 提供的mock 函数
+           items: [],
+           actions: {}
+         };
+         type ListType = ListPage<ListProps<Model>, ListState<Model>, Model>;
+         //@ts-ignore
+         const wrapper = shallow<ListType>(ListPage, props);
+         const instance: ListType = wrapper.instance();
+         return {
+           props,
+           wrapper,
+           instance
+         };
+       };
 
   it('ListPage render initial', (done) => {
-    const { wrapper } = setup();
+    const { wrapper,instance } = setup();
     expect(wrapper.state('selectedRows')).toEqual([])
     expect(wrapper.state('selectedRowKeys')).toEqual([])
     done()
@@ -81,7 +48,9 @@ describe('ListPage shallow render', () => {
     const config={
       rowSelection:null
     }
-    expect(wrapper.instance().mergeTableConfig(config)).toHaveProperty("rowSelection",null)
+    //@ts-ignore
+    const instance:ListPage<{},{},any> = wrapper.instance();
+    expect(instance.mergeTableConfig(config)).toHaveProperty("rowSelection",null)
     done()
   })
 
@@ -100,9 +69,12 @@ describe('ListPage shallow render', () => {
         selectedRowKeys:[]
       }
     }
-    wrapper.instance().onSelectChange=onChangeMock
+
+    //@ts-ignore
+    const instance:ListPage<{},{},any> = wrapper.instance();
+    instance.onSelectChange=onChangeMock
     // expect(wrapper.instance().mergeTableConfig(config)).toHaveProperty("rowSelection",Object.assign(defaultConfig.rowSelection,config.rowSelection))
-    expect(wrapper.instance().mergeTableConfig(config).rowSelection.selectedRowKeys).toEqual(Object.assign(defaultConfig.rowSelection,config.rowSelection).selectedRowKeys)
+    expect(instance.mergeTableConfig(config).rowSelection.selectedRowKeys).toEqual(Object.assign(defaultConfig.rowSelection,config.rowSelection).selectedRowKeys)
     done()
   })
 
@@ -136,26 +108,26 @@ describe('ListPage shallow render', () => {
   })
 
   it('ListPage method isSelectSingle',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().isSelectSingle()).toBe(false)
+    const { wrapper,instance } = setup();
+    expect(instance.isSelectSingle()).toBe(false)
     done()
   })
 
   it('ListPage method getSelectRows',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().getSelectRows()).toEqual(wrapper.state('selectedRows'))
+    const { wrapper,instance } = setup();
+    expect(instance.getSelectRows()).toEqual(wrapper.state('selectedRows'))
     done()
   })
 
   it('ListPage method getSelectKeys',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().getSelectKeys()).toEqual(wrapper.state('selectedRowKeys'))
+    const { wrapper,instance } = setup();
+    expect(instance.getSelectKeys()).toEqual(wrapper.state('selectedRowKeys'))
     done()
   })
 
   it('ListPage method getSelectLength',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().getSelectLength()).toEqual(wrapper.state('selectedRowKeys').length)
+    const {wrapper, instance} = setup();
+    expect(instance.getSelectLength()).toEqual(wrapper.state('selectedRowKeys').length)
     done()
   })
 
@@ -167,16 +139,16 @@ describe('ListPage shallow render', () => {
         search:"?aa=1&bb=2"
       }
     }
-    const { wrapper } = setup(props);
-    const searchParams=wrapper.instance().getSearchParams()
+    const { wrapper,instance } = setup(props);
+    const searchParams=instance.getSearchParams()
     expect(searchParams.getAll('aa')).toEqual(['1'])
     expect(searchParams.getAll('bb')).toEqual(['2'])
     done()
   })
 
   it('ListPage method clearSelectRows',(done)=>{
-    const { wrapper } = setup();
-    wrapper.instance().clearSelectRows()
+    const { wrapper,instance } = setup();
+    instance.clearSelectRows()
     expect(wrapper.state('selectedRowKeys')).toEqual([])
     expect(wrapper.state('selectedRows')).toEqual([])
     done()
@@ -184,17 +156,19 @@ describe('ListPage shallow render', () => {
 
 
   it('ListPage method handleAddRoute',(done)=>{
-    const { wrapper } = setup();
-    wrapper.instance().goAdd=jest.fn()
-    wrapper.instance().handleAddRoute()
-    expect(wrapper.instance().goAdd.mock.calls.length).toBe(1)
+    const { wrapper,instance } = setup();
+    instance.goAdd=jest.fn()
+    instance.handleAddRoute()
+    //@ts-ignore
+    expect(wrapper.instance.goAdd.mock.calls.length).toBe(1)
     done()
   })
 
   it('ListPage method handleEditRoute has id',(done)=>{
-    const { wrapper } = setup();
-    wrapper.instance().goEdit=jest.fn()
-    wrapper.instance().handleEditRoute(1)
+    const { wrapper,instance } = setup();
+    instance.goEdit=jest.fn()
+    instance.handleEditRoute("1")
+    //@ts-ignore
     expect(wrapper.instance().goEdit.mock.calls.length).toBe(1)
     done()
   })
@@ -238,8 +212,8 @@ describe('ListPage shallow render', () => {
         deleteRoute:jest.fn()
       }
     }
-    const { wrapper } = setup(props);
-    wrapper.instance().handleDeleteRoute(1)
+    const { wrapper,instance } = setup(props);
+    instance.handleDeleteRoute("1")
     expect(props.actions.deleteRoute.mock.calls.length).toBe(1)
     done()
   })
@@ -250,8 +224,8 @@ describe('ListPage shallow render', () => {
         deleteRoute:jest.fn()
       }
     }
-    const { wrapper } = setup(props);
-    wrapper.instance().handleDeleteRoute()
+    const { wrapper,instance } = setup(props);
+    instance.handleDeleteRoute()
     expect(props.actions.deleteRoute.mock.calls.length).toBe(1)
     done()
   })
@@ -262,8 +236,8 @@ describe('ListPage shallow render', () => {
         fetchPage:jest.fn()
       }
     }
-    const { wrapper } = setup(props);
-    wrapper.instance().handleFilter(undefined)
+    const { wrapper,instance } = setup(props);
+    instance.handleFilter(undefined)
     expect(wrapper.state('selectedRowKeys')).toEqual([])
     expect(wrapper.state('selectedRows')).toEqual([])
     expect(props.actions.fetchPage.mock.calls.length).toBe(1)
@@ -272,22 +246,23 @@ describe('ListPage shallow render', () => {
 
 
   it("List method onChange",(done)=>{
-    const { wrapper } = setup();
-    wrapper.instance().handleFilter=jest.fn()
-    wrapper.instance().onChange({},{},{})
-    expect(wrapper.instance().handleFilter.mock.calls.length).toBe(1)
+    const { wrapper,instance } = setup();
+    instance.handleFilter=jest.fn()
+    instance.onChange({},{},{})
+    //@ts-ignore
+    expect(instance.handleFilter.mock.calls.length).toBe(1)
     done()
   })
 
   it('list method renderSearchBar',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().renderSearchBar()).toBe(null)
+    const { wrapper,instance } = setup();
+    expect(instance.renderSearchBar()).toBe(null)
     done()
   })
 
   it('list method render',(done)=>{
-    const { wrapper } = setup();
-    expect(wrapper.instance().render()).toBe(null)
+    const { wrapper,instance } = setup();
+    expect(instance.render()).toBe(null)
     done()
   })
 

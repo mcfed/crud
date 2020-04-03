@@ -1,6 +1,6 @@
 import { URLSearchParams } from "url";
 import {PK, IParams, IPageState, IPageProps, IActions} from '../Page/IPage';
-import Model, { AnyModel, SessionBoundModel } from "redux-orm/Model";
+import Model, { AnyModel, SessionBoundModel, ModelClass } from "redux-orm/Model";
 import { match } from "react-router";
 
 interface Selectable{
