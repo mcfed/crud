@@ -4,7 +4,7 @@ import {shallow,mount,render, ShallowWrapper} from 'enzyme';
 import FormPage from '../Form.react';
 import FormView, {FormProps, FormState, Model} from './Form.view';
 
-describe('FormPage shallow render', () => {
+describe.skip('FormPage shallow render', () => {
   const setup = (): {
     props: Object,
     wrapper: ShallowWrapper<FormProps<Model>, FormState<Model>, FormView<Model>>;
