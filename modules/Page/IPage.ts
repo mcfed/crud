@@ -1,7 +1,5 @@
 import {Location, History} from 'history';
 import {match} from 'react-router';
-import Model from 'redux-orm';
-import { AnyModel } from 'redux-orm/Model';
 
 export type IValues = {
   [extraProps: string]: any
@@ -14,11 +12,11 @@ export interface IActions {
 export type PK = number | string
 
 
-export type IProps<Props = IPageProps<Model>> = {
+export type IProps<Props = IPageProps> = {
   [P in keyof Props]: Props[P];
 };
 
-export type IState<State = IPageState<Model>> = {
+export type IState<State = IPageState> = {
   [S in keyof State]: State[S];
 };
 
@@ -26,16 +24,16 @@ export type IParams<Params = {}> = {
   [S in keyof Params]?: Params[S];
 };
 
-export interface IPageProps<M> {
+export interface IPageProps{
   history: History;
-  match: match<M>;
+  match: match<any>;
   location: Location;
   locale: Function;
   querys: Function;
   spins: Function;
 }
 
-export interface IPageState<M> {}
+export interface IPageState {}
 
 
 export default interface IPage {
@@ -47,7 +45,7 @@ export default interface IPage {
    * 路由跳转到列表项修改路由
    * @param {string} route 当前路由
    */
-  goEdit(route: string): void;
+  goEdit(route: PK): void;
   /**
    * 路由跳转到列表页
    * @param {string} route 目标路由
@@ -57,7 +55,7 @@ export default interface IPage {
    * 路由跳转到列表项详情
    * @param {string} route 目标路由
    */
-  goDetail(route: string): void;
+  goDetail(route: PK): void;
 
   /**
    * @returns {undefined} undefined

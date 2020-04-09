@@ -17,32 +17,27 @@ import  RListPage from "../List.react";
 import { TableProps } from "antd/lib/table";
 
 export interface Model{
-  id?:string
+  id:string,
+  name:string
 }
 
-export interface ListProps<M extends Model> extends IRListProps<M> {
+export interface ListProps<M> extends IRListProps{
   reducer: Object;
+  items:any[];
 }
 
 
-export interface ListState<M extends Model> extends IRListState<M> {
+export interface ListState<M> extends IRListState{
   // value: number
 }
 
-export default class ListView<
-  P extends IProps<ListProps<M>>,
-  S extends IState<ListState<M>>,
-  M extends Model
-  //@ts-ignore
-> extends RListPage<P, S, M> {
+export default class ListView<M extends Model> extends RListPage<IProps<ListProps<M>>,IState<ListState<M>>> {
 
-  mergeTableConfig(config: TableProps<M>): Object {
+  mergeTableConfig(config: TableProps<any>): Object {
     return {};
   }
 
   componentDidMount(): void {
-    // const { actionsType } = this.props.actions;
-    // console.log(actionsType);
     this.handleFilter(this.searchParams());
   }
   handleFilter(value: Object) {
@@ -51,16 +46,12 @@ export default class ListView<
       match: { params }
     } = this.props;
     actions.fetchPage()
-    // actions.fetchPage()
-    // this.clearSelectRows()
-    // actions.fetchPage(Object.assign({}, value, params));
   }
   searchParams(): object {
     const { actions, querys } = this.props;
     const defaultParams: Object = {};
 
-    // return Object.assign(defaultParams, querys("actions.fetchPage"));
-    return {a:1}
+    return Object.assign(defaultParams, querys("actions.fetchPage"));
   }
   handlerMenu(rowkeys: string, actionType: string): void {
     const { actions } = this.props;
@@ -71,8 +62,7 @@ export default class ListView<
     } else if (actionType === "detail") {
       this.goDetail(rowkeys);
     } else if (actionType === "delete") {
-      // actions.fetchDelete(rowkeys);
-      // actions.
+      actions.fetchDelete(rowkeys);
     }
     this.clearSelectRows();
   }
@@ -128,6 +118,7 @@ export default class ListView<
   }
   renderTableButtonGroups(text:string, row:M): ReactNode {
     const { locale } = this.props;
+
     return (
       <ButtonGroups
         handleClick={(actionType:string)=>this.handlerMenu(row.id.toString(),actionType)}

@@ -12,23 +12,18 @@ import {
   IRListProps,
   IRListState,
 } from '../ListPage/IList'
-import Model, {SessionBoundModel} from 'redux-orm';
-import { AnyModel } from 'redux-orm/Model';
 
 export default abstract class RList<
-  P extends IProps<IRListProps<M>>,
-  S extends IState<IRListState<M>>,
-  M extends AnyModel
-> extends RPage<P, S> implements IList<M> {
-  constructor(props: P, state: S) {
-    super(props, state);
-  }
+  P extends IProps<any>,
+  S extends IState<any>
+  // M
+> extends RPage<P, S> implements IList{
 
   /**
    * 获取查询条件参数
    * @returns {object} 查询条件
    */
-  abstract searchParams(): IParams<M>;
+  abstract searchParams(): IParams<any>;
 
   /**
    * 监听过滤方法，即搜索提交
@@ -50,17 +45,12 @@ export default abstract class RList<
    * @param {object} selectedRows[].index 选择的单个列表项
    */
   onSelectChange(
-    selectedRowKeys: string[],
-    selectedRows: SessionBoundModel<M>[]
+    selectedRowKeys: PK[],
+    selectedRows: any[]
   ):void {
+    //@ts-ignore
     this.setState({selectedRowKeys, selectedRows});
   }
-  /*
-selectRowShow(reactNode){
-const {selectedRowKeys}=this.state
-return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" style={{textAlign:'left'}}><span>已选<span className="countNum">{selectedRowKeys.length}</span>条数据</span>{reactNode}</div>) :null
-}
-*/
 
   /**
    * 判断当前是否多选
@@ -105,9 +95,9 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
   }
   /**
    * 获取选中列表的RowKeys
-   * @returns {string} Desc: 返回 keys 数组
+   * @returns {PK} Desc: 返回 keys 数组
    */
-  getSelectKeys(): string[] {
+  getSelectKeys(): PK[] {
     return this.state.selectedRowKeys;
   }
 
@@ -115,7 +105,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 获取选中列表行数据
    * @returns {object} Desc: 返回选中记录数据
    */
-  getSelectRows():SessionBoundModel<M>[] {
+  getSelectRows():any[] {
     return this.state.selectedRows;
   }
   /**
@@ -133,6 +123,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 清空已选列清数据记录
    */
   clearSelectRows():void {
+    //@ts-ignore
     this.setState({selectedRowKeys: [], selectedRows: []});
   }
 
@@ -147,7 +138,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 编辑路由监听
    * @param  {key} id description:
    */
-  handleEditRoute(id: string):void {
+  handleEditRoute(id: PK):void {
     let key = id || this.getSelectKeys()[0];
     this.goEdit(key);
   }
@@ -156,7 +147,7 @@ return selectedRowKeys.length>0 ? (<div className="ant-table-title-toolbar" styl
    * 编辑路由监听
    * @param  {key} id 目标路由
    */
-  handleDetailRoute(id: string):void {
+  handleDetailRoute(id: PK):void {
     let key = id || this.getSelectKeys()[0];
     this.goDetail(key);
   }

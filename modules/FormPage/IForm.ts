@@ -1,17 +1,14 @@
-import Model, { SessionBoundModel } from "redux-orm";
 import {match} from 'react-router';
 import {IActions, IPageState, IPageProps} from '../Page/IPage';
 
-export interface IRFormProps<M extends Model = any> extends IPageProps<M> {
-  actions: IActions;
-  match: match<any>;
-  item: SessionBoundModel<M>;
+export interface IRFormProps extends IPageProps {
+  actions: any;
 }
 
-export interface IRFormState<M extends Model = any> extends IPageState<M> {}
+export interface IRFormState extends IPageState {}
 
 
-export default interface IForm<M>{
+export default interface IForm{
   onSubmit(actionType:string):void
   handleSubmit(value:any):any
 }
