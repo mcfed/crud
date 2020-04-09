@@ -4,7 +4,7 @@
   "description": "@mcf for crud",
   "module": "dist/modules/index.js",
   "main": "dist/modules/index.js",
-  "typings":"dist/modules/index.d.ts",
+  "typings": "dist/modules/index.d.ts",
   "scripts": {
     "test": "jest",
     "dev": "rollup -c --watch",
