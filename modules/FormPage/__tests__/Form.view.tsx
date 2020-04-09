@@ -2,31 +2,37 @@ import React, { ReactNode } from "react";
 import { Input } from "antd";
 //@ts-ignore
 import { BaseForm, FormItem, Panel } from "mcf-components";
+import {match} from 'react-router';
 import {  IProps, IState, IParams } from "../../Page/IPage";
 import {IRFormProps, IRFormState, } from '../IForm';
 import RFormPage from '../Form.react'
+// import { SessionBoundModel} from "redux-orm/Model";
 
-class Model{
+export class Model{
 
 }
 
-interface FormProps<M extends Model> extends IRFormProps<M> {
+
+class Actions {
+  fetchItem(payload: {id: string}) {}
+  fetchSave(payload:any){}
+}
+
+export interface FormProps<M extends Model> extends IRFormProps {
+  actions: Actions;
+  match: match<{id: string}>;
   reducer: Object;
+  item: any;
 }
 
-interface FormState<M extends Model> extends IRFormState<M> {
+export interface FormState<M extends Model> extends IRFormState{
   value: number;
 }
 
-export default class FormView<
-  P extends IProps<FormProps<M>>,
-  S extends IState<FormState<M>>,
-  M extends Model
-//@ts-ignore
-> extends RFormPage<P, S, M> {
+export default class FormView<M extends Model> extends RFormPage<IProps<FormProps<M>>,IState<FormState<M>>> {
   componentDidMount(): void {
     const { actions } = this.props;
-    const params: IParams<{id:string}> = this.props.match.params;
+    const params = this.props.match.params;
     if (params.id) {
       actions.fetchItem({ id: params.id });
     }

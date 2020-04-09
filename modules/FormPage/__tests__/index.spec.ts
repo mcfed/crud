@@ -2,19 +2,15 @@
 
 import {shallow,mount,render, ShallowWrapper} from 'enzyme';
 import FormPage from '../Form.react';
+import FormView, {FormProps, FormState, Model} from './Form.view';
 
 describe('FormPage shallow render', () => {
-  const setup = (): {props: object; wrapper: ShallowWrapper} => {
-    // 模拟 props
-    const props = {
-      // Jest 提供的mock 函数
-      items: [],
-      actions: {}
-    };
-
-    // 通过 enzyme 提供的 shallow(浅渲染) 创建组件
+  const setup = (): {
+    props: Object,
+    wrapper: ShallowWrapper<FormProps<Model>, FormState<Model>, FormView<Model>>;
+  } => {
     //@ts-ignore
-    const wrapper = shallow(FormPage,props);
+    const wrapper = shallow<FormView<Model>>(FormView, props);
     return {
       props,
       wrapper
@@ -29,6 +25,7 @@ describe('FormPage shallow render', () => {
 
   it('formPage saveFormRef',(done)=>{
     const form = {}
+    //@ts-ignore
     wrapper.instance().saveFormRef(form)
     expect(wrapper.instance().form).toBe(form)
     done()
@@ -41,6 +38,7 @@ describe('FormPage shallow render', () => {
     }
     wrapper.instance().handleCancel=jest.fn()
     wrapper.instance().onSubmit('handleCancel')
+    //@ts-ignore
     expect(wrapper.instance().handleCancel.mock.calls.length).toBe(1)
     done()
   })
@@ -67,6 +65,7 @@ describe('FormPage shallow render', () => {
     wrapper.instance().onSubmit('handleSubmit')
     wrapper.instance().form.validateFieldsAndScroll.mock.calls[0][1].apply(wrapper.instance(),[undefined,{a:1}])
     expect(wrapper.instance().form.validateFieldsAndScroll.mock.calls.length).toBe(1)
+    //@ts-ignore
     expect(wrapper.instance().handleSubmit.mock.calls.length).toBe(1)
     done()
   })

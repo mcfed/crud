@@ -2,13 +2,11 @@ import RPage from '../Page/Page.react';
 import IForm from './IForm';
 import {IRFormProps, IRFormState} from '../FormPage/IForm';
 import {IProps, IState} from '../Page/IPage';
-import { AnyModel } from 'redux-orm';
 
 export default abstract class RForm<
-  P extends IProps<IRFormProps<M>>,
-  S extends IState<IRFormState<M>>,
-  M extends AnyModel
-> extends RPage<P, S> implements IForm<M> {
+  P extends IProps<any>,
+  S extends IState<any>,
+> extends RPage<P, S> implements IForm {
   constructor(props: P, state: S) {
     super(props, state);
   }
