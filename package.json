@@ -2,8 +2,9 @@
   "name": "@mcf/crud",
   "version": "0.3.0",
   "description": "@mcf for crud",
-  "module": "dist/index.js",
-  "main": "modules/index.js",
+  "module": "dist/modules/index.js",
+  "main": "dist/modules/index.js",
+  "typings":"dist/modules/index.d.ts",
   "scripts": {
     "test": "jest",
     "dev": "rollup -c --watch",
@@ -20,7 +21,6 @@
     "type": "git",
     "url": "http://git.mchz.com.cn/mcf/crud.git"
   },
-  "typings": "dist/index.d.ts",
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
