@@ -28,7 +28,8 @@ export interface ListProps<M> extends IRListProps{
 
 
 export interface ListState<M> extends IRListState{
-  // value: number
+  selectedRows: any[];
+  selectedRowKeys: PK[];
 }
 
 export default class ListView<M extends Model> extends RListPage<IProps<ListProps<M>>,IState<ListState<M>>> {

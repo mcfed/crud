@@ -8,7 +8,13 @@ export interface Model {
   name: string;
 }
 
-export interface PageProps<M> extends IProps {}
+class Actions{
+  fetchItem(){}
+}
+
+export interface PageProps<M> extends IProps {
+  actions:Actions
+}
 
 export interface PageState<M> extends IState {}
 
@@ -17,9 +23,10 @@ export default class PageView<M extends Model> extends RPage<
   IState<PageState<M>>
 > {
   componentDidMount(): void {
-    throw new Error('Method not implemented.');
+    const {actions} = this.props
+    actions.fetchItem()
   }
   render(): React.ReactNode {
-    throw new Error('Method not implemented.');
+    return null
   }
 }

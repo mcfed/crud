@@ -18,6 +18,11 @@ export default abstract class RList<
   S extends IState<any>
   // M
 > extends RPage<P, S> implements IList{
+  //@ts-ignore
+  state={
+    selectedRows:[],
+    selectedRowKeys:[]
+  }
 
   /**
    * 获取查询条件参数

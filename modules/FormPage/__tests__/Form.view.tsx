@@ -19,7 +19,7 @@ class Actions {
 }
 
 export interface FormProps<M extends Model> extends IRFormProps {
-  actions: Actions;
+  actions: any;
   match: match<{id: string}>;
   reducer: Object;
   item: any;
