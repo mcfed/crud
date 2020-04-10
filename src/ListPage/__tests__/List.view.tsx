@@ -1,7 +1,4 @@
 import React, { Component, ReactNode } from "react";
-import { Button, Input, Select, Table, Tabs } from "antd";
-//@ts-ignore
-import { ButtonGroups, AdvancedSearch, DataTable, Panel } from "mcf-components";
 import {
   IRListProps,
   IRListState
@@ -34,7 +31,7 @@ export interface ListState<M> extends IRListState{
 
 export default class ListView<M extends Model> extends RListPage<IProps<ListProps<M>>,IState<ListState<M>>> {
 
-  mergeTableConfig(config: TableProps<any>): Object {
+  mergeTableConfig(config: any): Object {
     return {};
   }
 
@@ -68,68 +65,25 @@ export default class ListView<M extends Model> extends RListPage<IProps<ListProp
     this.clearSelectRows();
   }
   renderOptionItem(item:{label:string,value:string}, idx: PK): ReactNode {
-    return (
-      <Select.Option key={idx} value={item.value}>
-        {item.label}
-      </Select.Option>
-    );
+    return null;
   }
   renderSearchForm(): ReactNode {
     const { actions, spins, locale } = this.props;
-    // this.props.items.map((t:M)=>t.)
     const query: IParams<M> = this.searchParams();
-    return (
-      <AdvancedSearch
-        /*loading={spins("actions.fetchList")}  */
-        filterSubmitHandler={this.handleFilter.bind(this)}
-      >
-        <Input
-          /* label={locale("serverName.label")} */
-          name="serverName"
-          //@ts-ignore
-          defaultValue={query.nickname}
-        />
-      </AdvancedSearch>
-    );
+    return null;
   }
   render(): ReactNode {
-    return (
-      <Panel footer={false}>
-        {this.renderSearchForm()}
-        {/* {this.renderToolbar()} */}
-        {this.renderDataTable()}
-      </Panel>
-    );
+    return null
   }
 
   renderToolbar(): ReactNode {
     const { selectedRowKeys } = this.state;
-    // this.state.selectedRowKeys[0];
-    // this.state.selectedRows.map((it:M)=>it.name)
     const {  actions, locale } = this.props;
-
-    return (
-      <ButtonGroups handleClick={(actionType:string)=>this.handlerMenu.bind(selectedRowKeys,actionType)}>
-        <Button type="primary">{locale("GLOBAL.NEW")} </Button>
-        <Button /* loading={spins(actions.fetchDelete)} */>
-          {locale("GLOBAL.REMOVE")}
-        </Button>
-      </ButtonGroups>
-    );
+    return null
   }
   renderTableButtonGroups(text:string, row:M): ReactNode {
     const { locale } = this.props;
-
-    return (
-      <ButtonGroups
-        handleClick={(actionType:string)=>this.handlerMenu(row.id.toString(),actionType)}
-        size="small"
-      >
-        <Button>{locale("GLOBAL.MODIFY")}</Button>
-        <Button>{locale("GLOBAL.DETAIL")}</Button>
-        <Button>{locale("GLOBAL.REMOVE")}</Button>
-      </ButtonGroups>
-    );
+    return null;
   }
   renderDataTable(): ReactNode {
     const {
@@ -158,6 +112,6 @@ export default class ListView<M extends Model> extends RListPage<IProps<ListProp
       ]
     };
 
-    return <DataTable {...tableConf} />;
+    return null;
   }
 }
