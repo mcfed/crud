@@ -5,13 +5,10 @@ import {
 } from "../IList";
 
 import {
-  IProps,
-  IState,
   IParams,
   PK
 } from "../../Page/IPage";
 import  RListPage from "../List.react";
-import { TableProps } from "antd/lib/table";
 
 export interface Model{
   id:string,
@@ -29,10 +26,10 @@ export interface ListState<M> extends IRListState{
   selectedRowKeys: PK[];
 }
 
-export default class ListView<M extends Model> extends RListPage<IProps<ListProps<M>>,IState<ListState<M>>> {
+export default class ListView<M> extends RListPage<ListProps<M>,ListState<M>> {
 
-  mergeTableConfig(config: any): Object {
-    return {};
+  mergeTableConfig(config: any):object{
+    return config;
   }
 
   componentDidMount(): void {
@@ -93,7 +90,7 @@ export default class ListView<M extends Model> extends RListPage<IProps<ListProp
       spins,
       locale
     } = this.props;
-    let tableConf: TableProps<M> = {
+    let tableConf = {
       rowKey: "id",
       dataSource: [],
       columns: [

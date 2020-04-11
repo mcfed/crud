@@ -1,7 +1,6 @@
 import React, {ReactNode} from 'react';
 import {shallow, mount, render, ShallowWrapper} from 'enzyme';
 import ListView, {ListProps, ListState, Model} from './List.view';
-import {TableProps} from 'antd/lib/table';
 import {IProps,IState} from '../../Page/IPage';
 
 describe('ListPage shallow render', () => {
@@ -68,7 +67,7 @@ describe('ListPage shallow render', () => {
 
   xit('LIstPage method mergeTableConfig rowSelection null', done => {
     const {wrapper} = setup();
-    const config: TableProps<any> = {
+    const config = {
       rowSelection: undefined
     };
     expect(wrapper.instance().mergeTableConfig(config)).toHaveProperty(
@@ -89,14 +88,13 @@ describe('ListPage shallow render', () => {
     };
     const config = {
       rowSelection: {
-        selectedRowKeys: []
       }
     };
 
     wrapper.instance().onSelectChange = onChangeMock;
     expect(
       //@ts-ignore
-      wrapper.instance().mergeTableConfig(config).rowSelection.selectedRowKeys
+      wrapper.instance().mergeTableConfig(config).rowSelection
     ).toEqual(
       Object.assign(defaultConfig.rowSelection, config.rowSelection)
         .selectedRowKeys

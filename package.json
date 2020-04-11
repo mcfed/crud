@@ -41,5 +41,8 @@
     "react": "^16.0.0"
   },
   "dependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "react-dom": "^16.13.1"
   }
 }

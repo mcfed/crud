@@ -10,11 +10,7 @@ const defaultState = {
   selectedRowKeys: []
 };
 
-export default abstract class RList<
-  P extends IProps<IRListProps>,
-  S extends IState<IRListState>
-  // M
-> extends RPage<P, S> implements IList {
+export default abstract class RList<P extends IRListProps, S extends IRListState> extends RPage<IProps<P>,IState<S>> implements IList {
   //@ts-ignore
   readonly state: IState<IRListState> = defaultState;
 
