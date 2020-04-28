@@ -1,6 +1,6 @@
 {
   "name": "@mcf/crud",
-  "version": "0.4.0-rc3",
+  "version": "0.4.0-rc4",
   "description": "@mcf for crud",
   "module": "dist/modules/index.js",
   "main": "dist/modules/index.js",
@@ -21,6 +21,11 @@
     "type": "git",
     "url": "http://git.mchz.com.cn/mcf/crud.git"
   },
+  "files": [
+    "dist/",
+    "modules",
+    "package.json"
+  ],
   "author": "jaxchow",
   "license": "ISC",
   "devDependencies": {
