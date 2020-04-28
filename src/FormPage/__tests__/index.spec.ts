@@ -1,16 +1,39 @@
 
-
+import React from 'react'
 import {shallow,mount,render, ShallowWrapper} from 'enzyme';
 import FormPage from '../Form.react';
 import FormView, {FormProps, FormState, Model} from './Form.view';
+import { IProps } from '../../Page/IPage';
 
-describe.skip('FormPage shallow render', () => {
-  const setup = (): {
-    props: Object,
+describe('FormPage shallow render', () => {
+  //@ts-ignore
+  const defaultValue:IProps<FormProps<Model>> ={
+    actions:{
+      fetchItem:jest.fn(),
+      fetchSave:jest.fn()
+    },
+    spins:jest.fn(),
+    locale:jest.fn(),
+    querys:jest.fn(),
+    match:{
+      isExact:true,
+      url:"aaa",
+      path:"module",
+      params:{
+        id:"1"
+      }
+    },
+    item:{
+      id:1,
+      name:"name"
+    }
+  }
+  const setup = (props:IProps<FormProps<Model>>=defaultValue): {
+    props: IProps<FormProps<Model>>,
     wrapper: ShallowWrapper<FormProps<Model>, FormState<Model>, FormView<Model>>;
   } => {
-    //@ts-ignore
-    const wrapper = shallow<FormView<Model>>(FormView, props);
+
+    const wrapper = shallow<FormView<Model>>(React.createElement(FormView, props));
     return {
       props,
       wrapper
@@ -19,7 +42,7 @@ describe.skip('FormPage shallow render', () => {
 
   const { wrapper, props } = setup();
   it('FormPage render initial', (done) => {
-    expect(wrapper.instance().render()).toBe(null)
+    expect(wrapper.instance().render())
     done()
   })
 

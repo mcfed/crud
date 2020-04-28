@@ -1,5 +1,4 @@
-import {match} from 'react-router';
-import {IActions, IPageState, IPageProps} from '../Page/IPage';
+import {IPageState, IPageProps} from '../Page/IPage';
 
 export interface IRFormProps extends IPageProps {
   actions: any;

@@ -2,9 +2,10 @@
 import React from 'react';
 import {shallow, ShallowWrapper} from 'enzyme';
 import RPage from '../Page.react'
+import {IProps,IState} from '../IPage'
 import PageView, { Model,PageProps,PageState } from './Page.view';
 
-describe.skip('ListPage shallow render', () => {
+describe('ListPage shallow render', () => {
   const defaultProps = {
     // Jest 提供的mock 函数
     history: {
@@ -15,7 +16,9 @@ describe.skip('ListPage shallow render', () => {
       url: 'test'
     },
     items: [],
-    actions: {},
+    actions: {
+      fetchItem:jest.fn()
+    },
     type: {}
   };
   const setup = (
@@ -23,15 +26,14 @@ describe.skip('ListPage shallow render', () => {
   ): {
     props:any,
     wrapper: ShallowWrapper<
-      PageProps<Model>,
-      PageState<Model>,
+      IProps<PageProps<Model>>,
+      IState<PageState<Model>>,
       PageView<Model>
     >;
   } => {
     // 通过 enzyme 提供的 shallow(浅渲染) 创建组件
-    console.log(PageView);
     //@ts-ignore
-    const wrapper = shallow<PageView<Model>>(PageView, props);
+    const wrapper = shallow<PageView<Model>>(React.createElement(PageView, props));
 
     return {
       props,

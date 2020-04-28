@@ -1,15 +1,9 @@
 import RPage from '../Page/Page.react';
-import IForm from './IForm';
-import {IRFormProps, IRFormState} from '../FormPage/IForm';
+import IForm, { IRFormProps, IRFormState } from './IForm';
 import {IProps, IState} from '../Page/IPage';
 
-export default abstract class RForm<
-  P extends IProps<any>,
-  S extends IState<any>,
-> extends RPage<P, S> implements IForm {
-  constructor(props: P, state: S) {
-    super(props, state);
-  }
+export default abstract class RForm<P extends IRFormProps, S extends IRFormState> extends RPage<IProps<P>,IState<S>> implements IForm {
+
   form: any;
   // props:RFormProps
   /**
