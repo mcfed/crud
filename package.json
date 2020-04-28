@@ -1,6 +1,6 @@
 {
   "name": "@mcf/crud",
-  "version": "0.3.0",
+  "version": "0.4.0-rc1",
   "description": "@mcf for crud",
   "module": "dist/modules/index.js",
   "main": "dist/modules/index.js",
@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest",
     "dev": "rollup -c --watch",
-    "build": "rollup -c",
+    "build": "tsc -d",
     "jsdoc": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "keywords": [
