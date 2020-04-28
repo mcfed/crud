@@ -2,7 +2,7 @@ import VPage from '../Page/Page.vue'
 import {URLSearchParams} from "url"
 import IList from './IList';
 
-export default abstract class VList<M extends {}> extends VPage implements IList<M>{
+export default abstract class VList<M extends {}> extends VPage implements IList{
   onSelectChange(selectRowKey: String[], selectedRows: Object): void {
     throw new Error("Method not implemented.");
   }  isSelectMultiple(): Boolean {

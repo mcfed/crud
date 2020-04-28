@@ -2,22 +2,17 @@ import {ReactNode} from 'react';
 import {URLSearchParams} from 'url';
 import RPage from '../Page/Page.react';
 import IList from './IList';
-import {
-  IProps,
-  IState,
-  PK,
-  IParams
-} from '../Page/IPage';
-import {
-  IRListProps,
-  IRListState,
-} from '../ListPage/IList'
+import {IProps, IState, PK, IParams} from '../Page/IPage';
+import {IRListProps, IRListState} from '../ListPage/IList';
 
-export default abstract class RList<
-  P extends IProps<any>,
-  S extends IState<any>
-  // M
-> extends RPage<P, S> implements IList{
+const defaultState = {
+  selectedRows: [],
+  selectedRowKeys: []
+};
+
+export default abstract class RList<P extends IRListProps, S extends IRListState> extends RPage<IProps<P>,IState<S>> implements IList {
+  //@ts-ignore
+  readonly state: IState<IRListState> = defaultState;
 
   /**
    * 获取查询条件参数
@@ -44,10 +39,7 @@ export default abstract class RList<
    * @param {Array} selectedRows    已选择的列表项数组
    * @param {object} selectedRows[].index 选择的单个列表项
    */
-  onSelectChange(
-    selectedRowKeys: PK[],
-    selectedRows: any[]
-  ):void {
+  onSelectChange(selectedRowKeys: PK[], selectedRows: any[]): void {
     //@ts-ignore
     this.setState({selectedRowKeys, selectedRows});
   }
@@ -56,7 +48,7 @@ export default abstract class RList<
    * 判断当前是否多选
    * @returns {boolean} Desc: 是否多选状态
    */
-  isSelectMultiple():boolean {
+  isSelectMultiple(): boolean {
     return this.getSelectLength() >= 1;
   }
 
@@ -64,7 +56,7 @@ export default abstract class RList<
    * 判断当前是否单选
    * @returns {boolean} Desc: 是否为单选状态
    */
-  isSelectSingle():boolean {
+  isSelectSingle(): boolean {
     return this.getSelectLength() == 1;
   }
 
@@ -74,7 +66,7 @@ export default abstract class RList<
    * 建议使用isSelectMultiple
    * @returns {boolean} Desc: 返回是否多选状态
    */
-  selectMultiple():boolean {
+  selectMultiple(): boolean {
     return this.getSelectLength() <= 0;
   }
   /**
@@ -83,14 +75,14 @@ export default abstract class RList<
    * 建议使用isSelectSingle
    * @returns {boolean} Desc: 返回当前是否单选状态
    */
-  selectSingle():boolean {
+  selectSingle(): boolean {
     return this.getSelectLength() != 1;
   }
   /**
    * 获取当前列表选中记录数量
    * @returns {number} Desc: 返回选中记录数量
    */
-  getSelectLength():number {
+  getSelectLength(): number {
     return this.getSelectKeys().length;
   }
   /**
@@ -105,14 +97,14 @@ export default abstract class RList<
    * 获取选中列表行数据
    * @returns {object} Desc: 返回选中记录数据
    */
-  getSelectRows():any[] {
+  getSelectRows(): any[] {
     return this.state.selectedRows;
   }
   /**
    * 获取路径参数对象
    * @returns {URLSearchParams} Desc: URLSearchParams 实例对象
    */
-  getSearchParams():URLSearchParams {
+  getSearchParams(): URLSearchParams {
     const {
       location: {search}
     } = this.props;
@@ -122,7 +114,7 @@ export default abstract class RList<
   /**
    * 清空已选列清数据记录
    */
-  clearSelectRows():void {
+  clearSelectRows(): void {
     //@ts-ignore
     this.setState({selectedRowKeys: [], selectedRows: []});
   }
@@ -130,7 +122,7 @@ export default abstract class RList<
   /**
    * 新增路由监听
    */
-  handleAddRoute():void {
+  handleAddRoute(): void {
     this.goAdd();
   }
 
@@ -138,7 +130,7 @@ export default abstract class RList<
    * 编辑路由监听
    * @param  {key} id description:
    */
-  handleEditRoute(id: PK):void {
+  handleEditRoute(id: PK): void {
     let key = id || this.getSelectKeys()[0];
     this.goEdit(key);
   }
@@ -147,7 +139,7 @@ export default abstract class RList<
    * 编辑路由监听
    * @param  {key} id 目标路由
    */
-  handleDetailRoute(id: PK):void {
+  handleDetailRoute(id: PK): void {
     let key = id || this.getSelectKeys()[0];
     this.goDetail(key);
   }
@@ -155,7 +147,7 @@ export default abstract class RList<
   /**
    * 取消或回退路由监听
    */
-  handleBackRoute():void {
+  handleBackRoute(): void {
     this.goBack();
   }
 
@@ -163,7 +155,7 @@ export default abstract class RList<
    * 删除路由监听
    * @param  {rowskey} id description:
    */
-  handleDeleteRoute(id: string):void {
+  handleDeleteRoute(id: string): void {
     let {actions} = this.props;
     let key = id || this.getSelectKeys()[0];
     actions.deleteRoute(key);
@@ -175,7 +167,7 @@ export default abstract class RList<
    * @param  {unknown} filters    description:
    * @param  {object} sorter     description:
    */
-  onChange(pagination: any, filters: any, sorter: any):void {
+  onChange(pagination: any, filters: any, sorter: any): void {
     // let {reducer}=this.props
     // this.querys()
     var object = Object.assign({}, this.searchParams(), pagination, sorter);
