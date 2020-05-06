@@ -1,10 +1,10 @@
 {
   "name": "@mcf/crud",
-  "version": "0.4.0-rc5",
+  "version": "0.4.0-rc6",
   "description": "@mcf for crud",
-  "module": "dist/modules/index.js",
-  "main": "dist/modules/index.js",
-  "typings": "dist/modules/index.d.ts",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "npx tsc -d",
