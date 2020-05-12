@@ -1,6 +1,6 @@
 {
   "name": "@mcf/crud",
-  "version": "0.4.0-rc6",
+  "version": "0.4.1-rc1",
   "description": "@mcf for crud",
   "module": "dist/index.js",
   "main": "dist/index.js",
