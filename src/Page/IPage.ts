@@ -25,6 +25,7 @@ export type IParams<Params = {}> = {
 };
 
 export interface IPageProps{
+  intl:any;
   history: History;
   match: match<any>;
   location: Location;
