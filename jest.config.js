@@ -10,19 +10,7 @@ module.exports = {
       statements: 70,
     },
   },
-  notify: true,
-  setupTestFrameworkScriptFile: "<rootDir>/setupTests.ts",
-  coveragePathIgnorePatterns: [ //该路径下的测试，忽略在测试覆盖率上
-    'build',
-    '<rootDir>/src/shared/libs/url/',
-  ],
-  testURL: "http://localhost/",
-  testRegex: '__tests__/.*\\.ts?$', //要测试的文件目录及后缀
-  testPathIgnorePatterns: [ //忽略该路径的文件测试
-    '<rootDir>/node_modules/(?!lodash-es)',
-    '<rootDir>/build/',
-    '<rootDir>/client',
-    '<rootDir>/dist',
+  notify: true,bast',
     '<rootDir>/scripts/',
     '<rootDir>/api/',
     '<rootDir>/test/setup.js',
@@ -31,8 +19,7 @@ module.exports = {
   ],
   // "snapshotSerializers": ["enzyme-to-json/serializer"],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.jsx?$': 'babel-jest'
+    '^.+\\.tsx?$': 'ts-jest'
   },
   moduleFileExtensions: ['','ts','tsx','json', 'js', 'jsx', 'less'], //测试模块中用到的文件的后缀名配置
   modulePaths: ['<rootDir>/src'],
