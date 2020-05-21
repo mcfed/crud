@@ -6,6 +6,7 @@ import {IProps,IState} from '../IPage'
 import PageView, { Model,PageProps,PageState } from './Page.view';
 
 describe('ListPage shallow render', () => {
+  const url = 'test';
   const defaultProps = {
     // Jest 提供的mock 函数
     history: {
@@ -13,7 +14,7 @@ describe('ListPage shallow render', () => {
       push: jest.fn()
     },
     match: {
-      url: 'test'
+      url
     },
     items: [],
     actions: {
@@ -33,7 +34,11 @@ describe('ListPage shallow render', () => {
   } => {
     // 通过 enzyme 提供的 shallow(浅渲染) 创建组件
     //@ts-ignore
-    const wrapper = shallow<PageView<Model>>(React.createElement(PageView, props));
+    const wrapper = shallow<PageView<Model>>(React.createElement(PageView, props)) as ShallowWrapper<
+      IProps<PageProps<Model>>,
+      IState<PageState<Model>>,
+      PageView<Model>
+    >;
 
     return {
       props,
@@ -41,7 +46,7 @@ describe('ListPage shallow render', () => {
     };
   };
 
-  const { wrapper, props } = setup();
+  let { wrapper, props } = setup();
   it('Page method goBack()', (done) => {
     wrapper.instance().goBack()
 
@@ -53,6 +58,22 @@ describe('ListPage shallow render', () => {
   it('Page method goRoutes()', (done) => {
     wrapper.instance().goRoutes("add")
     expect(props.history.push.mock.calls.length).toBe(1)
+    expect(props.history.push.mock.calls[0][0]).toBe(`${url}/add`)
+    done()
+  })
+
+  it('Page method goRoutes() with root url', (done) => {
+    ({wrapper, props} = setup({
+      ...defaultProps,
+      match: {url: '/'}, 
+      history: {
+        goBack: jest.fn(),
+        push: jest.fn()
+      },
+    }))
+    wrapper.instance().goRoutes("add")
+    expect(props.history.push.mock.calls.length).toBe(1)
+    expect(props.history.push.mock.calls[0][0]).toBe('/add')
     done()
   })
 

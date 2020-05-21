@@ -45,7 +45,8 @@ export default abstract class RPage<P extends IProps, S extends IState>
    */
   goRoutes(route: string): void {
     const {history, match} = this.props;
-    history.push(`${match.url}/${route}`);
+    const baseUrl = match.url.endsWith('/') ? match.url.slice(0, -1) : match.url
+    history.push(`${baseUrl}/${route}`);
   }
 
   abstract componentDidMount(): void;
