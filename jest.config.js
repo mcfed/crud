@@ -31,8 +31,7 @@ module.exports = {
   ],
   // "snapshotSerializers": ["enzyme-to-json/serializer"],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.jsx?$': 'babel-jest'
+    '^.+\\.tsx?$': 'ts-jest'
   },
   moduleFileExtensions: ['','ts','tsx','json', 'js', 'jsx', 'less'], //测试模块中用到的文件的后缀名配置
   modulePaths: ['<rootDir>/src'],
