@@ -1,6 +1,6 @@
 {
   "name": "@mcfed/crud",
-  "version": "0.1.0",
+  "version": "0.4.3-beta",
   "description": "@mcfed for crud",
   "module": "dist/index.js",
   "main": "dist/index.js",
