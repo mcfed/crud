@@ -1,5 +1,3 @@
-import {Location, History} from 'history';
-import {match} from 'react-router';
 
 export type IValues = {
   [extraProps: string]: any
@@ -26,9 +24,6 @@ export type IParams<Params = {}> = {
 
 export interface IPageProps{
   intl:any;
-  history: History;
-  match: match<any>;
-  location: Location;
   locale: Function;
   querys: Function;
   spins: Function;
@@ -58,6 +53,7 @@ export default interface IPage {
    */
   goDetail(route: PK): void;
 
+  ready():void;
   /**
    * @returns {undefined} undefined
    */

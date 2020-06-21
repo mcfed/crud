@@ -105,10 +105,7 @@ export default abstract class RList<P extends IRListProps, S extends IRListState
    * @returns {URLSearchParams} Desc: URLSearchParams 实例对象
    */
   getSearchParams(): URLSearchParams {
-    const {
-      location: {search}
-    } = this.props;
-    return new URLSearchParams(search.substring(1));
+    return new URLSearchParams();
   }
 
   /**

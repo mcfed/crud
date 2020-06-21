@@ -14,20 +14,6 @@ describe('ListPage shallow render', () => {
     spins:jest.fn(),
     locale:jest.fn(),
     querys:jest.fn(),
-    location: {
-      pathname:"",
-      state:{},
-      hash:"",
-      search: '?aa=1&bb=2'
-    },
-    match:{
-      isExact:true,
-      url:"aaa",
-      path:"module",
-      params:{
-        id:"1"
-      }
-    },
     items:[{
       id:1,
       name:"name"

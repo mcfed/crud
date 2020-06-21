@@ -27,18 +27,19 @@ export interface ListState<M> extends IRListState{
 }
 
 export default class ListView<M> extends RListPage<ListProps<M>,ListState<M>> {
+  goRoutes(){
 
+  }
   mergeTableConfig(config: any):object{
     return config;
   }
 
-  componentDidMount(): void {
+  ready(): void {
     this.handleFilter(this.searchParams());
   }
   handleFilter(value: Object) {
     const {
       actions,
-      match: { params }
     } = this.props;
     actions.fetchPage()
   }

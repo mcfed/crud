@@ -9,8 +9,6 @@ export default abstract class RPage<P extends IProps, S extends IState>
    * 返回到上一步路由
    */
   public goBack(): void {
-    const {history} = this.props;
-    history.goBack();
   }
   /**
    * 路由跳转到新增列表项
@@ -39,16 +37,19 @@ export default abstract class RPage<P extends IProps, S extends IState>
   goDetail(route: PK): void {
     this.goRoutes(`${route}`);
   }
+
+  componentDidMount(){
+    this.ready()
+  }
+
   /**
    * 跳转到指定路由
    * @param {string} route 目标路由
    */
-  goRoutes(route: string): void {
-    const {history, match} = this.props;
-    const baseUrl = match.url.endsWith('/') ? match.url.slice(0, -1) : match.url
-    history.push(`${baseUrl}/${route}`);
-  }
-
-  abstract componentDidMount(): void;
+  abstract goRoutes(route: string): void
+  /**
+   * alias compomentsDidMount for react
+   */
+  abstract ready(): void;
   abstract render(): ReactNode;
 }
