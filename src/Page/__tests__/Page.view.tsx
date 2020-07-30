@@ -22,7 +22,7 @@ export default class PageView<M extends Model> extends RPage<
   IProps<PageProps<M>>,
   IState<PageState<M>>
 > {
-  componentDidMount(): void {
+  viewMount(): void {
     const {actions} = this.props
     actions.fetchItem()
   }

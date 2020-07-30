@@ -3,6 +3,9 @@ import IPage from './IPage';
 
 export default abstract class VPage extends Vue implements IPage{
   protected $router:any
+  mount(){
+    this.viewMount()
+  }
   goBack(): void {
     this.$router.go(-1)
   }
@@ -22,5 +25,7 @@ export default abstract class VPage extends Vue implements IPage{
     const {history,push} = this.$router
     push([history.current.path,route].join("/"))
   }
+  
+  abstract viewMount():void
   abstract render():VNode
 }

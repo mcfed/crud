@@ -1,11 +1,6 @@
 import React, { ReactNode } from "react";
-//@ts-ignore
-import { BaseForm, FormItem, Panel } from "mcf-components";
-import {match} from 'react-router';
-import {  IProps, IState, IParams } from "../../Page/IPage";
 import {IRFormProps, IRFormState, } from '../IForm';
 import RFormPage from '../Form.react'
-// import { SessionBoundModel} from "redux-orm/Model";
 
 export class Model{
 
@@ -19,7 +14,7 @@ class Actions {
 
 export interface FormProps<M extends Model> extends IRFormProps {
   actions: any;
-  match: match<{id: string}>;
+  match: any;
   reducer: Object;
   item: any;
 }
@@ -29,7 +24,7 @@ export interface FormState<M extends Model> extends IRFormState{
 }
 
 export default class FormView<M extends Model> extends RFormPage<FormProps<M>,FormState<M>> {
-  componentDidMount(): void {
+  viewMount(): void {
     const { actions } = this.props;
     const params = this.props.match.params;
     if (params.id) {

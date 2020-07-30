@@ -1,5 +1,5 @@
-import {Location, History} from 'history';
-import {match} from 'react-router';
+import { Location, History } from 'history';
+
 
 export type IValues = {
   [extraProps: string]: any
@@ -24,55 +24,60 @@ export type IParams<Params = {}> = {
   [S in keyof Params]?: Params[S];
 };
 
-export interface IPageProps{
-  intl:any;
+export interface IPageProps {
+  intl: any;
   history: History;
-  match: match<any>;
+  match: any;
   location: Location;
   locale: Function;
+  dicts: Function;
   querys: Function;
   spins: Function;
 }
 
-export interface IPageState {}
+export interface IPageState { }
 
 
+/**
+ * @module Page 页面接口描述信息
+ * @
+ */
 export default interface IPage {
   /**
-   * 路由跳转到新增列表项
+   * @description 路由跳转到新增列表项
    */
   goAdd(): void;
   /**
-   * 路由跳转到列表项修改路由
+   * @description 路由跳转到列表项修改路由
    * @param {string} route 当前路由
    */
   goEdit(route: PK): void;
   /**
-   * 路由跳转到列表页
+   * @description 路由跳转到列表页
    * @param {string} route 目标路由
    */
   goList(route: string): void;
   /**
-   * 路由跳转到列表项详情
+   * @description 路由跳转到列表项详情
    * @param {string} route 目标路由
    */
   goDetail(route: PK): void;
 
   /**
-   * @returns {undefined} undefined
+   *  @description viewMount
    */
-  render(): void;
+  viewMount():void 
 }
 
 export interface IRouter {
 
   /**
-   * 跳转到指定路由
+   * @description 跳转到指定路由
    * @param {string} route 目标路由
    */
   goRoutes(route: string): void;
   /**
-   * 返回到上一步路由
+   * @description 返回到上一步路由
    */
   goBack(): void;
 }

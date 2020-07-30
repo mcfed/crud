@@ -13,12 +13,8 @@
 ## Master
 
 <!-- Your comment below this -->
-# 1.3.1
+# 0.5.0
 
-- 修改table size 为 small [@guor]
-- 增加umd发布方式 [@zhouhuan]
-
-# 1.3.0
-
-- 重新修改打包机制，master 上使用自动化发布 [@zhouhuan]
-- 取消umd发布包，改用cjs和es方式 [@zhouhuan]
+- feat: 增加lifecycle ：viewMount 代替  componentDidMount 
+- chore: 删除老旧js文件代码,去除不必要包依赖
+- docs: 更新代码方法docs注释描述

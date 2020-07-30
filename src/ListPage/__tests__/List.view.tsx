@@ -32,7 +32,7 @@ export default class ListView<M> extends RListPage<ListProps<M>,ListState<M>> {
     return config;
   }
 
-  componentDidMount(): void {
+  viewMount(): void {
     this.handleFilter(this.searchParams());
   }
   handleFilter(value: Object) {
