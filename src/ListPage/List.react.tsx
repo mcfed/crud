@@ -20,7 +20,7 @@ const defaultState = {
 export default abstract class RList<P extends IRListProps, S extends IRListState> extends RPage<IProps<P>,IState<S>> implements IList {
 
   //@ts-ignore
-  readonly state: IState<IRListState> = defaultState;
+  readonly state: IState<S> = defaultState;
   
 
   /**
